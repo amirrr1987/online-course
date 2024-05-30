@@ -1,20 +1,10 @@
 <template>
-  <div class="bg-gray-200 min-h-screen">
-    <!-- <section class="py-12 text-4xl">
-      <div class="container mx-auto">
-        Course: 
-      </div>
-      <div class="container mx-auto grid grid-cols-2">
-        <div class="bg-red">
-            
-            <NuxtPage />
-        </div>
-        <div class="bg-green">
-            Chapters
-        </div>
-      </div>
-    </section> -->
-  </div>
+  <section class="">
+    <div class="container mx-auto">
+      <NuxtLink to="/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3"></NuxtLink>
+    </div>
+    
+  </section>
 </template>
 
 <script setup lang="ts">
