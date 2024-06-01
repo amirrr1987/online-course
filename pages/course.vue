@@ -37,9 +37,4 @@
 
 <script setup lang="ts">
 const course = await useCourse();
-console.log("🚀 ~ course:", course.value);
-console.log("🚀 ~ course:", course.value);
-console.log("🚀 ~ course:", course.value);
-
-console.log(course.value);
 </script>

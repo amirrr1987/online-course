@@ -41,7 +41,7 @@ useHead({
   title: title.value,
 });
 
-const progress = useLocalStorage("progress", []);
+const progress = useLocalStorage<Array<Array<boolean | null>>>("progress", []);
 
 const isLessonComplete = computed(() => {
   if (!progress.value[chapter.value.number - 1]) {
