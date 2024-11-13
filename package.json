@@ -10,13 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vueuse/core": "^10.10.0",
-    "@vueuse/nuxt": "^10.10.0",
-    "nuxt": "^3.11.2",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "@nuxt/fonts": "^0.10.2",
+    "@nuxt/ui": "^2.19.2",
+    "@vueuse/core": "^10.11.1",
+    "@vueuse/nuxt": "^10.11.1",
+    "nuxt": "^3.14.159",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5"
   },
-  "devDependencies": {
-    "@unocss/nuxt": "^0.60.3"
-  }
+  "devDependencies": {}
 }

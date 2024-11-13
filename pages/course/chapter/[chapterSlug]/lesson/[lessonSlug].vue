@@ -13,13 +13,38 @@
         :modelValue="isLessonComplete"
         @update:modelValue="toggleComplete"
       />
+      <button
+        class="bg-red-500 px-8 py-2"
+        @click="throw createError('sample test error');"
+      >
+        Create error
+      </button>
     </ClientOnly>
   </div>
 </template>
 <script setup lang="ts">
 const course = await useCourse();
-
 const route = useRoute();
+
+// definePageMeta({
+//   async validate(params) {
+//     const course = await useCourse();
+
+//     const chapter = course.value.chapters.find((item) => {
+//       return item.slug === params.chapterSlug
+//     })
+
+//     if (!chapter) {
+//       return createError({
+//         statusCode: 404,
+//         message: 'peyda nashod'
+//       })
+//     }
+
+//     return true
+//   },
+// });
+
 const chapter = computed(() => {
   const index = course.value.chapters.findIndex(
     (item) => item.slug === route.params.chapterSlug

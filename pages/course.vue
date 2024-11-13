@@ -17,8 +17,8 @@
                 <li v-for="lesson in chapter.lessons" class="mb-2">
                   <NuxtLink
                     :to="lesson.path"
-                    active-class="text-green"
-                    class="text-blue"
+                    active-class="text-green-500"
+                    class="text-blue-500"
                   >
                     {{ lesson.title }}
                   </NuxtLink>
@@ -28,7 +28,14 @@
           </ul>
         </div>
         <div class="bg-white p-12 rounded-r col-span-9">
-          <NuxtPage />
+          <NuxtErrorBoundary>
+            <NuxtPage />
+            <template #error="{ error }">
+              <div>this code</div>
+              <div>{{ error }}</div>
+              <button @click="resetError(error)">reset error</button>
+            </template>
+          </NuxtErrorBoundary>
         </div>
       </div>
     </section>
@@ -37,4 +44,8 @@
 
 <script setup lang="ts">
 const course = await useCourse();
+
+const resetError = (error: any) => {
+  error.value = null;
+};
 </script>
