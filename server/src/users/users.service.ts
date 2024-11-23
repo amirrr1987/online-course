@@ -24,7 +24,8 @@ export class UsersService {
 
   async findAll() {
     try {
-      return await this.userRepository.find();
+      const result = await this.userRepository.find();
+      return this.responseService.findAll('users', result);
     } catch (error) {
       return this.responseService.error(error);
     }
@@ -32,7 +33,8 @@ export class UsersService {
 
   async findOne(id: UserDTO.FindOne.Request) {
     try {
-      return await this.userRepository.findOne({ where: { id } });
+      const result = await this.userRepository.findOne({ where: { id } });
+      return this.responseService.findOne('user', result);
     } catch (error) {
       return this.responseService.error(error);
     }

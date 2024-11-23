@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from './user.dto';
-import { ResponseService } from 'src/response/response.service';
 
 @Controller('users')
 export class UsersController {

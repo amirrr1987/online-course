@@ -1,5 +1,4 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class ResponseService {
