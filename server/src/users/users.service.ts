@@ -13,8 +13,10 @@ export class UsersService {
 
   async create(dto: UserDTO.CreateOne.Request): Promise<UserEntity> {
     try {
-      const newUser = this.userRepository.create(dto);
-      return await this.userRepository.save(newUser);
+      const res = await this.userRepository.findOne({ where: { ...dto } });
+      // const res = await this.userRepository.save(dto);
+      console.log('🚀 ~ UsersService ~ create ~ res:', res);
+      return res;
     } catch (error) {
       throw new Error((error as Error).message);
     }

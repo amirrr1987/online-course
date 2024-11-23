@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoryDTO } from './category.dto';
+import { ResponseService } from 'src/response/response.service';
 
 @Controller('categories')
 export class CategoriesController {

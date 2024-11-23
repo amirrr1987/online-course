@@ -22,18 +22,19 @@ export class UsersController {
   @Post()
   create(@Body() dto: UserDTO.CreateOne.Request) {
     const data = this.usersService.create(dto);
-    return this.responseService.createOne(data);
+    return this.responseService.createOne('user', data);
   }
 
   @Get()
   async findAll() {
     const data = await this.usersService.findAll();
-    return this.responseService.findAll(data);
+    return this.responseService.findAll('users', data);
   }
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe()) id: UserDTO.FindOne.Request) {
-    return this.usersService.findOne(id);
+    const data = this.usersService.findOne(id);
+    return this.responseService.findOne('user', data);
   }
 
   @Patch(':id')
@@ -41,11 +42,13 @@ export class UsersController {
     @Param('id', new ParseIntPipe()) id: UserDTO.UpdateOne.Request['id'],
     @Body() dto: UserDTO.UpdateOne.Request,
   ) {
-    return this.usersService.update(id, dto);
+    const data = this.usersService.update(id, dto);
+    return this.responseService.updateOne('user', data);
   }
 
   @Delete(':id')
   remove(@Param('id', new ParseIntPipe()) id: UserDTO.DeleteOne.Request) {
-    return this.usersService.remove(id);
+    this.usersService.remove(id);
+    return this.responseService.remove('user', id);
   }
 }

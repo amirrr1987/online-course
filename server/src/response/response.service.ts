@@ -1,14 +1,14 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ResponseService {
   /**
-   * Retrieve all items.
+   * Return all items.
    */
-  findAll(data: any[] = [], message = 'Successfully retrieved all items') {
+  findAll(key: string, data: any[]) {
     return {
       statusCode: HttpStatus.OK,
-      message,
+      message: `All ${key} are returned successfully.`,
       data,
     };
   }
@@ -16,13 +16,10 @@ export class ResponseService {
   /**
    * Retrieve a single item.
    */
-  findOne(data: any = null, message = 'Successfully retrieved the item') {
-    if (!data) {
-      throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
-    }
+  findOne(key: string, data: any) {
     return {
       statusCode: HttpStatus.OK,
-      message,
+      message: `The ${key} with ID ${data.id} was found successfully.`,
       data,
     };
   }
@@ -30,10 +27,10 @@ export class ResponseService {
   /**
    * Create a new item.
    */
-  createOne(data: any = null, message = 'Successfully created the item') {
+  createOne(key: string, data: any) {
     return {
       statusCode: HttpStatus.CREATED,
-      message,
+      message: `The ${key} was created successfully with ID ${data.id}.`,
       data,
     };
   }
@@ -41,20 +38,10 @@ export class ResponseService {
   /**
    * Update an existing item.
    */
-  updateOne(
-    success: boolean,
-    data: any = null,
-    message = 'Successfully updated the item',
-  ) {
-    if (!success) {
-      throw new HttpException(
-        'Failed to update the item',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+  updateOne(key: string, data: any) {
     return {
       statusCode: HttpStatus.OK,
-      message,
+      message: `The ${key} with ID ${data.id} was updated successfully.`,
       data,
     };
   }
@@ -62,16 +49,16 @@ export class ResponseService {
   /**
    * Delete an item.
    */
-  remove(success: boolean, message = 'Successfully deleted the item') {
-    if (!success) {
-      throw new HttpException(
-        'Failed to delete the item',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+  remove(key: string, id: number) {
     return {
       statusCode: HttpStatus.OK,
-      message,
+      message: `The ${key} with ID ${id} was removed successfully.`,
+    };
+  }
+  notFound(key: string, id: number) {
+    return {
+      statusCode: HttpStatus.FORBIDDEN,
+      message: `The ${key} with ID ${id} was not found.`,
     };
   }
 }
