@@ -18,7 +18,7 @@ export class UsersService {
       const result = await this.userRepository.findOne({ where: { ...dto } });
       return this.responseService.findAll('users', result);
     } catch (error) {
-      return this.responseService.error(error);
+      throw this.responseService.error(error);
     }
   }
 
@@ -27,7 +27,7 @@ export class UsersService {
       const result = await this.userRepository.find();
       return this.responseService.findAll('users', result);
     } catch (error) {
-      return this.responseService.error(error);
+      throw this.responseService.error(error);
     }
   }
 
@@ -36,7 +36,7 @@ export class UsersService {
       const result = await this.userRepository.findOne({ where: { id } });
       return this.responseService.findOne('user', result);
     } catch (error) {
-      return this.responseService.error(error);
+      throw this.responseService.error(error);
     }
   }
 
@@ -51,7 +51,7 @@ export class UsersService {
       }
       return this.responseService.updateOne('user', id);
     } catch (error) {
-      return this.responseService.error(error);
+      throw this.responseService.error(error);
     }
   }
 
@@ -63,7 +63,7 @@ export class UsersService {
       }
       return this.responseService.remove('user', id);
     } catch (error) {
-      return this.responseService.error(error);
+      throw this.responseService.error(error);
     }
   }
 }

@@ -27,11 +27,10 @@ export class ResponseService {
   /**
    * Create a new item.
    */
-  createOne(key: string, data: any) {
+  createOne(key: string, id: number) {
     return {
       statusCode: HttpStatus.CREATED,
-      message: `The ${key} was created successfully with ID ${data.id}.`,
-      data,
+      message: `The ${key} was created successfully with ID ${id}.`,
     };
   }
 
@@ -126,7 +125,7 @@ export class ResponseService {
       // PostgreSQL Error Codes
       case '23505': // Unique violation
         return {
-          statusCode: HttpStatus.BAD_REQUEST,
+          statusCode: HttpStatus.CONFLICT,
           message: 'The requested resource has duplicate value.',
         };
 

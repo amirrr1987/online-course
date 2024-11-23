@@ -14,15 +14,10 @@ export class CategoriesService {
   ) {}
   async create(dto: CategoryDTO.CreateOne.Request) {
     try {
-      const existingCategory = await this.categoryRepository.findOne({
-        where: { value: dto.value },
-      });
-      if (existingCategory) {
-        throw new Error('Category with this name already exists.');
-      }
-      return await this.categoryRepository.save(dto);
+      const result = await this.categoryRepository.save(dto);
+      return this.responseService.createOne('category', result.id);
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw this.responseService.error(error);
     }
   }
 
@@ -30,7 +25,7 @@ export class CategoriesService {
     try {
       return await this.categoryRepository.find();
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw this.responseService.error(error);
     }
   }
 
@@ -38,7 +33,7 @@ export class CategoriesService {
     try {
       return await this.categoryRepository.findOne({ where: { id } });
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw this.responseService.error(error);
     }
   }
 
@@ -53,7 +48,7 @@ export class CategoriesService {
       }
       return this.responseService.updateOne('category', id);
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw this.responseService.error(error);
     }
   }
 
@@ -65,7 +60,7 @@ export class CategoriesService {
       }
       return this.responseService.remove('category', id);
     } catch (error) {
-      throw new Error((error as Error).message);
+      throw this.responseService.error(error);
     }
   }
 }
