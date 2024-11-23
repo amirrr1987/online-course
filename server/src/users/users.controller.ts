@@ -14,27 +14,21 @@ import { ResponseService } from 'src/response/response.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly responseService: ResponseService,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   create(@Body() dto: UserDTO.CreateOne.Request) {
-    const data = this.usersService.create(dto);
-    return this.responseService.createOne('user', data);
+    return this.usersService.create(dto);
   }
 
   @Get()
   async findAll() {
-    const data = await this.usersService.findAll();
-    return this.responseService.findAll('users', data);
+    return this.usersService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe()) id: UserDTO.FindOne.Request) {
-    const data = this.usersService.findOne(id);
-    return this.responseService.findOne('user', data);
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
@@ -42,13 +36,11 @@ export class UsersController {
     @Param('id', new ParseIntPipe()) id: UserDTO.UpdateOne.Request['id'],
     @Body() dto: UserDTO.UpdateOne.Request,
   ) {
-    const data = this.usersService.update(id, dto);
-    return this.responseService.updateOne('user', data);
+    return this.usersService.update(id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id', new ParseIntPipe()) id: UserDTO.DeleteOne.Request) {
-    this.usersService.remove(id);
-    return this.responseService.remove('user', id);
+    return this.usersService.remove(id);
   }
 }

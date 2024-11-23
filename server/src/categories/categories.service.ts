@@ -47,7 +47,11 @@ export class CategoriesService {
     dto: CategoryDTO.UpdateOne.Request,
   ) {
     try {
-      return await this.categoryRepository.update(id, dto);
+      const result = await this.categoryRepository.update(id, dto);
+      if (result.affected === 0) {
+        return this.responseService.notFound('category', id);
+      }
+      return this.responseService.updateOne('category', id);
     } catch (error) {
       throw new Error((error as Error).message);
     }

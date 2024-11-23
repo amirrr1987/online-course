@@ -3,55 +3,65 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User as UserEntity } from './user.entity'; // Your entity file path
 import { UserDTO } from './user.dto';
+import { ResponseService } from 'src/response/response.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly responseService: ResponseService,
   ) {}
 
-  async create(dto: UserDTO.CreateOne.Request): Promise<UserEntity> {
+  async create(dto: UserDTO.CreateOne.Request) {
     try {
-      const res = await this.userRepository.findOne({ where: { ...dto } });
-      // const res = await this.userRepository.save(dto);
-      console.log('🚀 ~ UsersService ~ create ~ res:', res);
-      return res;
+      const result = await this.userRepository.findOne({ where: { ...dto } });
+      return this.responseService.findAll('users', result);
     } catch (error) {
-      throw new Error((error as Error).message);
+      return this.responseService.error(error);
     }
   }
 
-  async findAll(): Promise<UserEntity[]> {
+  async findAll() {
     try {
       return await this.userRepository.find();
     } catch (error) {
-      throw new Error((error as Error).message);
+      return this.responseService.error(error);
     }
   }
 
-  async findOne(id: UserDTO.FindOne.Request): Promise<UserEntity | undefined> {
+  async findOne(id: UserDTO.FindOne.Request) {
     try {
       return await this.userRepository.findOne({ where: { id } });
     } catch (error) {
-      throw new Error((error as Error).message);
+      return this.responseService.error(error);
     }
   }
 
   async update(
     id: UserDTO.UpdateOne.Request['id'],
     dto: UserDTO.UpdateOne.Request,
-  ): Promise<UserEntity | null> {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      return null;
+  ) {
+    try {
+      const result = await this.userRepository.update(id, dto);
+      if (result.affected === 0) {
+        return this.responseService.notFound('user', id);
+      }
+      return this.responseService.updateOne('user', id);
+    } catch (error) {
+      return this.responseService.error(error);
     }
-    const updatedUser = { ...user, ...dto };
-    return await this.userRepository.save(updatedUser);
   }
 
-  async remove(id: UserDTO.DeleteOne.Request): Promise<boolean> {
-    const result = await this.userRepository.delete(id);
-    return result.affected > 0;
+  async remove(id: UserDTO.DeleteOne.Request) {
+    try {
+      const result = await this.userRepository.delete(id);
+      if (result.affected === 0) {
+        return this.responseService.notFound('user', id);
+      }
+      return this.responseService.remove('user', id);
+    } catch (error) {
+      return this.responseService.error(error);
+    }
   }
 }
