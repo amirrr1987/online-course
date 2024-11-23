@@ -10,19 +10,25 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from './user.dto';
+import { ResponseService } from 'src/response/response.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly responseService: ResponseService,
+  ) {}
 
   @Post()
   create(@Body() dto: UserDTO.CreateOne.Request) {
-    return this.usersService.create(dto);
+    const data = this.usersService.create(dto);
+    return this.responseService.createOne(data);
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    const data = await this.usersService.findAll();
+    return this.responseService.findAll(data);
   }
 
   @Get(':id')

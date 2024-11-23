@@ -2,10 +2,10 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
-import * as path from 'path';
-import { User as UserEntity } from 'src/users/user.entity';
+import { User as UserEntity } from '../users/user.entity';
+import { Category as CategoryEntity } from '../categories/category.entity';
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
 @Injectable()
 class ConfigService {
@@ -28,7 +28,7 @@ class ConfigService {
 
   public getPort(): number {
     const port = this.getValue('PORT', true);
-    return parseInt(port, 10) || 5000; // Default to 3000 if invalid
+    return parseInt(port, 10);
   }
 
   public isProduction(): boolean {
@@ -44,12 +44,9 @@ class ConfigService {
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
-      //   entities: [path.join(__dirname, '/../**/*.entity{.ts,.js}')],
-      entities: [UserEntity],
-      synchronize: false, // Set to true only for development
-      ssl: this.isProduction()
-        ? { rejectUnauthorized: false } // Enable SSL for production
-        : false,
+      entities: [UserEntity, CategoryEntity],
+      synchronize: false,
+      ssl: this.isProduction() ? { rejectUnauthorized: false } : false,
     };
   }
 }

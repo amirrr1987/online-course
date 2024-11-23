@@ -8,12 +8,16 @@ import { UserDTO } from './user.dto';
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>, // Use TypeORM Repository
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async create(dto: UserDTO.CreateOne.Request): Promise<UserEntity> {
-    const newUser = this.userRepository.create(dto);
-    return await this.userRepository.save(newUser);
+    try {
+      const newUser = this.userRepository.create(dto);
+      return await this.userRepository.save(newUser);
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
   }
 
   async findAll(): Promise<UserEntity[]> {
@@ -27,7 +31,9 @@ export class UsersService {
   async findOne(id: UserDTO.FindOne.Request): Promise<UserEntity | undefined> {
     try {
       return await this.userRepository.findOne({ where: { id } });
-    } catch (error) {}
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
   }
 
   async update(
@@ -36,7 +42,7 @@ export class UsersService {
   ): Promise<UserEntity | null> {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
-      return null; // Handle case where user is not found
+      return null;
     }
     const updatedUser = { ...user, ...dto };
     return await this.userRepository.save(updatedUser);
