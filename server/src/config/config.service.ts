@@ -4,6 +4,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { User as UserEntity } from '../users/user.entity';
 import { Category as CategoryEntity } from '../categories/category.entity';
+import { Course as CourseEntity } from '../courses/course.entity';
 
 dotenv.config();
 
@@ -40,11 +41,11 @@ class ConfigService {
     return {
       type: 'postgres',
       host: this.getValue('POSTGRES_HOST'),
-      port: parseInt(this.getValue('POSTGRES_PORT'), 10) || 5432,
+      port: parseInt(this.getValue('POSTGRES_PORT'), 10),
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
-      entities: [UserEntity, CategoryEntity],
+      entities: [UserEntity, CategoryEntity, CourseEntity],
       synchronize: false,
       ssl: this.isProduction() ? { rejectUnauthorized: false } : false,
     };

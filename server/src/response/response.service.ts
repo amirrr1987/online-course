@@ -1,4 +1,10 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+export class ForbiddenException extends HttpException {
+  constructor() {
+    super('Forbidden', HttpStatus.FORBIDDEN);
+  }
+}
 
 @Injectable()
 export class ResponseService {
@@ -121,8 +127,15 @@ export class ResponseService {
   }
 
   error(error: any) {
+    new ForbiddenException();
     switch (error.code) {
       // PostgreSQL Error Codes
+      case '25200': // Unique violation
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: 'The requested resource has duplicate value.',
+        };
+
       case '23505': // Unique violation
         return {
           statusCode: HttpStatus.CONFLICT,
@@ -203,5 +216,22 @@ export class ResponseService {
       statusCode: HttpStatus.NO_CONTENT,
       message,
     };
+  }
+
+  test(error) {
+    if ((error.status = HttpStatus.FORBIDDEN)) {
+    }
+    switch (error.status) {
+      case HttpStatus.CONFLICT:
+        throw new HttpException(error.message, HttpStatus.CONFLICT);
+      case HttpStatus.NOT_FOUND:
+        throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+      case HttpStatus.OK:
+        throw new HttpException(error.message, HttpStatus.OK);
+      case HttpStatus.FORBIDDEN:
+        throw new HttpException(error.message, HttpStatus.FORBIDDEN);
+      case HttpStatus.FORBIDDEN:
+        throw new HttpException(error.message, HttpStatus.FORBIDDEN);
+    }
   }
 }
