@@ -20,7 +20,7 @@ export namespace CategoryDTO {
     export type Response = UpdateCategoryDto[];
   }
   export namespace CreateOne {
-    export type Request = CreateCategoryDto;
+    export class Request extends CreateCategoryDto {}
     export type Response = CreateCategoryDto;
   }
   export namespace FindOne {
@@ -28,7 +28,7 @@ export namespace CategoryDTO {
     export type Response = UpdateCategoryDto;
   }
   export namespace UpdateOne {
-    export type Request = UpdateCategoryDto;
+    export class Request extends UpdateCategoryDto {}
     export type Response = UpdateCategoryDto;
   }
   export namespace DeleteOne {
