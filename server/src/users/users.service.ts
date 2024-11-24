@@ -15,8 +15,8 @@ export class UsersService {
 
   async create(dto: UserDTO.CreateOne.Request) {
     try {
-      const result = await this.userRepository.findOne({ where: { ...dto } });
-      return this.responseService.findAll('users', result);
+      const result = await this.userRepository.save(dto);
+      return this.responseService.createOne('users', result.id);
     } catch (error) {
       throw this.responseService.error(error);
     }
@@ -36,6 +36,7 @@ export class UsersService {
       const result = await this.userRepository.findOne({ where: { id } });
       return this.responseService.findOne('user', result);
     } catch (error) {
+      console.log(error);
       throw this.responseService.error(error);
     }
   }

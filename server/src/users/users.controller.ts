@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from './user.dto';
@@ -16,6 +18,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @UsePipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   create(@Body() dto: UserDTO.CreateOne.Request) {
     return this.usersService.create(dto);
   }
@@ -31,6 +41,14 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @UsePipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   update(
     @Param('id', new ParseIntPipe()) id: UserDTO.UpdateOne.Request['id'],
     @Body() dto: UserDTO.UpdateOne.Request,
@@ -39,6 +57,11 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  )
   remove(@Param('id', new ParseIntPipe()) id: UserDTO.DeleteOne.Request) {
     return this.usersService.remove(id);
   }
