@@ -7,15 +7,15 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // پیکربندی Swagger برای OpenAPI
   const config = new DocumentBuilder()
     .setTitle('Online course API ')
-    .setDescription('API Documentation for My Application')
+    .setDescription('API Documentation for online-course')
     .setVersion('0.1')
+    .addTag('cats')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document); // دسترسی به Swagger UI در /api
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT);
 }

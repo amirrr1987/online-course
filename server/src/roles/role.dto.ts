@@ -1,13 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsBoolean,
-  IsDate,
-  IsInt,
   IsNumber,
   IsOptional,
   IsString,
   MaxLength,
-  Min,
   MinLength,
 } from 'class-validator';
 
@@ -15,15 +12,18 @@ class CreateRoleDto {
   @IsString()
   @MinLength(2)
   @MaxLength(100)
+  @ApiProperty()
   label: string;
 
   @IsString()
   @IsOptional()
+  @ApiProperty()
   value: string;
 }
 
 class UpdateRoleDto extends PartialType(CreateRoleDto) {
   @IsNumber()
+  @ApiProperty()
   id: number;
 }
 

@@ -1,5 +1,5 @@
 import { CoreEntity } from 'src/core.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends CoreEntity {
