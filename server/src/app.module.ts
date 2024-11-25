@@ -9,6 +9,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { CoursesModule } from './courses/courses.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
     UsersModule,
     CategoriesModule,
     CoursesModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [
