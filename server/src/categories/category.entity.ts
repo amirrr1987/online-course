@@ -1,10 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CoreEntity } from 'src/core.entity';
+import { Entity, Column } from 'typeorm';
 
 @Entity({ name: 'categories' })
-export class Category {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Category extends CoreEntity {
   @Column()
   label: string;
 

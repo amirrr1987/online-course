@@ -1,10 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
+import { CoreDTO } from 'src/core.dto';
 
-class CreateCategoryDto {
-  @IsNumber()
-  id: number;
-
+class CreateCategoryDto extends CoreDTO.Create {
   @IsString()
   label: string;
 
@@ -12,7 +10,9 @@ class CreateCategoryDto {
   value: string;
 }
 
-class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}
+class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
+  id: number;
+}
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace CategoryDTO {
