@@ -10,9 +10,8 @@ import { Request, Response } from 'express';
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
-    if (exception.code === '23505') {
-      console.dir(exception instanceof HttpException);
-    }
+    console.dir(exception);
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
@@ -22,10 +21,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const message =
+    let message =
       exception instanceof HttpException
         ? exception.getResponse()
         : 'Internal server error';
+
+    if (exception.code === '42703') {
+      message = exception.driverError.routine;
+    }
+    if (exception.code === '23505') {
+      // console.dir(exception instanceof HttpException);
+    }
 
     response.status(status).json({
       statusCode: status,

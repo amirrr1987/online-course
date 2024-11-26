@@ -13,7 +13,7 @@ export class UsersService {
     private readonly responseService: ResponseService,
   ) {}
 
-  async create(dto: UserDTO.CreateOne.Request) {
+  async create(dto: UserDTO.CreateOne.RequestType) {
     try {
       const result = await this.userRepository.save(dto);
       return this.responseService.createOne('users', result.id);
@@ -31,9 +31,11 @@ export class UsersService {
     }
   }
 
-  async findOne(id: UserDTO.FindOne.Request) {
+  async findOne(id: UserDTO.FindOne.RequestType) {
     try {
-      const result = await this.userRepository.findOne({ where: { id } });
+      const result = await this.userRepository.findOne({
+        where: { id: id },
+      });
       return this.responseService.findOne('user', result);
     } catch (error) {
       console.log(error);
@@ -41,22 +43,19 @@ export class UsersService {
     }
   }
 
-  async update(
-    id: UserDTO.UpdateOne.Request['id'],
-    dto: UserDTO.UpdateOne.Request,
-  ) {
+  async update(dto: UserDTO.UpdateOne.RequestType) {
     try {
-      const result = await this.userRepository.update(id, dto);
+      const result = await this.userRepository.update(dto.id, dto);
       if (result.affected === 0) {
-        return this.responseService.notFound('user', id);
+        return this.responseService.notFound('user', dto.id);
       }
-      return this.responseService.updateOne('user', id);
+      return this.responseService.updateOne('user', dto.id);
     } catch (error) {
       throw this.responseService.error(error);
     }
   }
 
-  async remove(id: UserDTO.DeleteOne.Request) {
+  async remove(id: UserDTO.DeleteOne.RequestType) {
     try {
       const result = await this.userRepository.delete(id);
       if (result.affected === 0) {
