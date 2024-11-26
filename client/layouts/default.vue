@@ -3,4 +3,5 @@
     <main>
         <slot />
     </main>
+    <TheFooter />
 </template>
