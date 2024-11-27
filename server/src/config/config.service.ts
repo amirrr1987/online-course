@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import { User as UserEntity } from '../users/user.entity';
 import { Category as CategoryEntity } from '../categories/category.entity';
 import { Course as CourseEntity } from '../courses/course.entity';
+import { Roles as RoleEntity } from 'src/roles/role.entity';
 
 dotenv.config();
 
@@ -45,7 +46,7 @@ class ConfigService {
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
-      entities: [UserEntity, CategoryEntity, CourseEntity],
+      entities: [UserEntity, CategoryEntity, CourseEntity, RoleEntity],
       synchronize: false,
       ssl: this.isProduction() ? { rejectUnauthorized: false } : false,
     };

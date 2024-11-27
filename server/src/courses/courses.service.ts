@@ -53,7 +53,12 @@ export class CoursesService {
         `A course with value ${dto.value} already exists.`,
       );
     }
-    const courseToCreate = await this.courseRepository.create(dto);
+    console.log(dto);
+    const courseToCreate = await this.courseRepository.create();
+    // console.log("🚀 ~ CoursesService ~ create ~ courseToCreate:", courseToCreate)
+
+    Object.assign(courseToCreate, dto);
+
     await this.courseRepository.save(courseToCreate);
 
     return this.responseService.createOne('course', courseToCreate.id);

@@ -7,45 +7,59 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { ResponseDTO } from 'src/response/response.dto';
 
 class CreateRoleDto {
   @IsString()
   @MinLength(2)
   @MaxLength(100)
-  @ApiProperty()
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
   label: string;
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
   value: string;
 }
 
 class UpdateRoleDto extends PartialType(CreateRoleDto) {
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({
+    type: Number,
+    required: false,
+  })
   id: number;
 }
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace RoleDTO {
   export namespace GetAll {
-    export type Response = UpdateRoleDto[];
+    export class GResponse extends ResponseDTO.GetAll {
+      data: UpdateRoleDto[];
+    }
   }
   export namespace CreateOne {
-    export class Request extends CreateRoleDto {}
-    export type Response = CreateRoleDto;
+    export class CRequest extends CreateRoleDto {}
+    export class CResponse extends ResponseDTO.CreateOne {}
   }
   export namespace FindOne {
-    export type Request = UpdateRoleDto['id'];
-    export type Response = UpdateRoleDto;
+    export type FRequest = UpdateRoleDto['id'];
+    export class FResponse extends ResponseDTO.FindOne {
+      data: UpdateRoleDto;
+    }
   }
   export namespace UpdateOne {
-    export class Request extends UpdateRoleDto {}
-    export type Response = UpdateRoleDto;
+    export class URequest extends UpdateRoleDto {}
+    export type UResponse = ResponseDTO.UpdateOne;
   }
   export namespace DeleteOne {
-    export type Request = UpdateRoleDto['id'];
-    export type Response = UpdateRoleDto;
+    export type DRequest = UpdateRoleDto['id'];
+    export type DResponse = ResponseDTO.DeleteOne;
   }
 }

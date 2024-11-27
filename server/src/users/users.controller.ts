@@ -11,7 +11,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDTO } from './user.dto';
+import { UserDTO, UserDTOGetAllResponse, UserDTOO } from './user.dto';
 import {
   ApiResponse,
   OmitType,
@@ -47,7 +47,7 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'Fetched all users successfully.',
-    type: UserDTO.GetAll.GResponse,
+    type: UserDTOO.GetAll.Response,
   })
   async findAll() {
     return this.usersService.findAll();

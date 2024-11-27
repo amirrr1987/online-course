@@ -62,6 +62,26 @@ export class UpdateUserDto extends CreateUserDto {
   })
   updatedAt?: Date;
 }
+class Response extends ResponseDTO.GetAll {
+  @ApiProperty({
+    type: UpdateUserDto,
+    required: false,
+  })
+  data: UpdateUserDto[];
+}
+export const UserDTOO = {
+  GetAll: {
+    Response: Response,
+  },
+};
+
+export class UserDTOGetAllResponse extends ResponseDTO.GetAll {
+  @ApiProperty({
+    type: [UpdateUserDto],
+    required: false,
+  })
+  data: UpdateUserDto[];
+}
 
 export class UserDTOClass {}
 
@@ -69,6 +89,10 @@ export class UserDTOClass {}
 export namespace UserDTO {
   export namespace GetAll {
     export class GResponse extends ResponseDTO.GetAll {
+      @ApiProperty({
+        type: UpdateUserDto,
+        required: false,
+      })
       data: UpdateUserDto[];
     }
   }

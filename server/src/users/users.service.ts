@@ -15,6 +15,7 @@ export class UsersService {
 
   async create(dto: UserDTO.CreateOne.CRequest) {
     try {
+      this.userRepository.create(dto)
       const result = await this.userRepository.save(dto);
       return this.responseService.createOne('users', result.id);
     } catch (error) {

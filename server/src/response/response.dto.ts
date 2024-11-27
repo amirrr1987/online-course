@@ -15,6 +15,8 @@ export namespace ResponseDTO {
       example: 'All keys are returned successfully.',
     })
     message: string;
+
+    data: any;
   }
 
   export class CreateOne {

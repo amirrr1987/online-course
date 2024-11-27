@@ -9,4 +9,5 @@ export class CoreEntity extends BaseEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   updatedAt: Date;
+
 }

@@ -125,7 +125,7 @@ export class ResponseService {
   }
 
   error(error: any) {
-    new ForbiddenException();
+    // new ForbiddenException();
     switch (error.code) {
       // PostgreSQL Error Codes
       case '25200': // Unique violation

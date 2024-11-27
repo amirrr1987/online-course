@@ -5,8 +5,19 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Role as RoleEntity } from './role.entity';
-import { RoleDTO } from './role.dto';
+import { Roles as RoleEntity } from './role.entity';
+import {
+  RoleCreateOneRequest,
+  RoleCreateOneResponse,
+  RoleDeleteOneRequest,
+  RoleDeleteOneResponse,
+  RoleFindOneRequest,
+  RoleFindOneResponse,
+  RoleGetAllRequest,
+  RoleGetAllResponse,
+  RoleUpdateOneRequest,
+  RoleUpdateOneResponse,
+} from './dto';
 import { ResponseService } from 'src/response/response.service';
 
 @Injectable()
@@ -31,7 +42,7 @@ export class RolesService {
    * @param id - The unique ID of the role.
    * @returns A promise that resolves with the role or throws a NotFoundException.
    */
-  async findOne(id: RoleDTO.FindOne.Request) {
+  async findOne(id: RoleFindOneRequest) {
     const role = await this.roleRepository.findOne({ where: { id } });
     if (!role.id) {
       throw new NotFoundException(`role with ID ${id} not found`);
@@ -44,7 +55,8 @@ export class RolesService {
    * @param RoleDTO - Data Transfer Object containing role data.
    * @returns A promise that resolves with the created role.
    */
-  async create(dto: RoleDTO.CreateOne.Request) {
+  async create(dto: RoleCreateOneRequest) {
+    console.log('🚀 ~ RolesService ~ create ~ dto:', dto);
     const existingRole = await this.roleRepository.findOne({
       where: { value: dto.value },
     });
@@ -54,22 +66,20 @@ export class RolesService {
       );
     }
     const roleToCreate = await this.roleRepository.create(dto);
-    await this.roleRepository.save(roleToCreate);
+    console.log('🚀 ~ RolesService ~ create ~ roleToCreate:', roleToCreate);
 
-    return this.responseService.createOne('role', roleToCreate.id);
+    // const data = await this.roleRepository.save(dto);
+    // return data;
   }
 
-  async update(
-    id: RoleDTO.UpdateOne.Request['id'],
-    dto: RoleDTO.UpdateOne.Request,
-  ) {
-    const role = await this.roleRepository.findOne({ where: { id } });
+  async update(dto: RoleUpdateOneRequest) {
+    const role = await this.roleRepository.findOne({ where: { id: dto.id } });
 
     if (!role.id) {
-      throw new NotFoundException(`role with ID ${id} not found.`);
+      throw new NotFoundException(`role with ID ${role.id} not found.`);
     }
 
-    await this.roleRepository.update(id, dto);
+    await this.roleRepository.update(role.id, dto);
 
     return this.responseService.updateOne('role', role.id);
   }
@@ -79,7 +89,7 @@ export class RolesService {
    * @param id - The ID of the role to delete.
    * @returns A promise that resolves with a boolean indicating success.
    */
-  async remove(id: RoleDTO.DeleteOne.Request) {
+  async remove(id: RoleDeleteOneRequest) {
     const role = await this.roleRepository.findOne({ where: { id } });
 
     if (!role.id) {
