@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Patch,
-  Put,
   Param,
   Delete,
   ParseIntPipe,
@@ -26,6 +25,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @UsePipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   @ApiResponse({
     status: 201,
     description: 'User has been created successfully.',
@@ -46,6 +53,14 @@ export class UsersController {
   }
 
   @Patch()
+  @UsePipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   @ApiResponse({
     status: 200,
     description: 'Fetched all users successfully.',
@@ -59,6 +74,14 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UsePipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   @ApiResponse({
     description: 'User has been deleted successfully.',
     type: UserDTO.DeleteOne.DResponse,
