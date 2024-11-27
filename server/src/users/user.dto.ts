@@ -8,15 +8,15 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PartialType, PickType } from '@nestjs/mapped-types';
+import { ResponseDTO } from 'src/response/response.dto';
+import { HttpStatus } from '@nestjs/common';
 
 class CreateUserDto {
   @IsString()
   @MinLength(2)
   @MaxLength(50)
   @ApiProperty({
-    example: 'John',
-    description: 'First name of the user',
+    type: String,
     required: true,
   })
   first_name: string;
@@ -25,8 +25,7 @@ class CreateUserDto {
   @MinLength(2)
   @MaxLength(50)
   @ApiProperty({
-    example: 'Doe',
-    description: 'Last name of the user',
+    type: String,
     required: true,
   })
   last_name: string;
@@ -35,7 +34,6 @@ class CreateUserDto {
   @IsMobilePhone('fa-IR')
   @ApiProperty({
     type: String,
-    description: 'Mobile phone',
     required: true,
   })
   mobile: string;
@@ -46,7 +44,6 @@ export class UpdateUserDto extends CreateUserDto {
   @IsPositive()
   @ApiProperty({
     type: Number,
-    description: 'id',
     required: true,
   })
   id: number;
@@ -54,7 +51,6 @@ export class UpdateUserDto extends CreateUserDto {
   @IsDate()
   @ApiProperty({
     type: Date,
-    description: 'createdAt',
     required: false,
   })
   createdAt?: Date;
@@ -62,31 +58,48 @@ export class UpdateUserDto extends CreateUserDto {
   @IsDate()
   @ApiProperty({
     type: Date,
-    description: 'updatedAt',
     required: false,
   })
   updatedAt?: Date;
 }
 
+export class UserDTOClass {}
+
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace UserDTO {
   export namespace GetAll {
-    export class ResponseType extends UpdateUserDto {}
+    export class GResponse extends ResponseDTO.GetAll {
+      data: UpdateUserDto[];
+    }
   }
   export namespace CreateOne {
-    export class RequestType extends CreateUserDto {}
-    export class ResponseType extends UpdateUserDto {}
+    export class CRequest extends CreateUserDto {}
+    export class CResponse extends ResponseDTO.CreateOne {}
   }
   export namespace FindOne {
-    export type RequestType = UpdateUserDto['id'];
-    export class ResponseType extends UpdateUserDto {}
+    export type FRequest = UpdateUserDto['id'];
+    export class FResponse extends ResponseDTO.FindOne {
+      data: UpdateUserDto;
+    }
   }
   export namespace UpdateOne {
-    export class RequestType extends UpdateUserDto {}
-    export class ResponseType extends UpdateUserDto {}
+    export class URequest extends UpdateUserDto {}
+    export class UResponse implements ResponseDTO.UpdateOne {
+      @ApiProperty({
+        type: Number,
+        example: HttpStatus.ACCEPTED,
+      })
+      statusCode: number;
+
+      @ApiProperty({
+        type: String,
+        example: 'The key with ID was updated successfully.',
+      })
+      message: string;
+    }
   }
   export namespace DeleteOne {
-    export type RequestType = UpdateUserDto['id'];
-    export class ResponseType extends UpdateUserDto {}
+    export type DRequest = UpdateUserDto['id'];
+    export class DResponse extends ResponseDTO.DeleteOne {}
   }
 }

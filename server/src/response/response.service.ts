@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ResponseDTO } from './response.dto';
 
 export class ForbiddenException extends HttpException {
   constructor() {
@@ -19,9 +20,6 @@ export class ResponseService {
     };
   }
 
-  /**
-   * Retrieve a single item.
-   */
   findOne(key: string, data: any) {
     return {
       statusCode: HttpStatus.OK,
@@ -35,7 +33,7 @@ export class ResponseService {
    */
   createOne(key: string, id: number) {
     return {
-      statusCode: HttpStatus.CREATED,
+      statusCode: HttpStatus.ACCEPTED,
       message: `The ${key} was created successfully with ID ${id}.`,
     };
   }
@@ -43,9 +41,9 @@ export class ResponseService {
   /**
    * Update an existing item.
    */
-  updateOne(key: string, id: number) {
+  updateOne(key: string, id: number): ResponseDTO.UpdateOne {
     return {
-      statusCode: HttpStatus.OK,
+      statusCode: HttpStatus.ACCEPTED,
       message: `The ${key} with ID ${id} was updated successfully.`,
     };
   }
@@ -53,9 +51,9 @@ export class ResponseService {
   /**
    * Delete an item.
    */
-  remove(key: string, id: number) {
+  remove(key: string, id: number): ResponseDTO.DeleteOne {
     return {
-      statusCode: HttpStatus.OK,
+      statusCode: HttpStatus.ACCEPTED,
       message: `The ${key} with ID ${id} was removed successfully.`,
     };
   }

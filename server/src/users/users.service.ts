@@ -13,7 +13,7 @@ export class UsersService {
     private readonly responseService: ResponseService,
   ) {}
 
-  async create(dto: UserDTO.CreateOne.RequestType) {
+  async create(dto: UserDTO.CreateOne.CRequest) {
     try {
       const result = await this.userRepository.save(dto);
       return this.responseService.createOne('users', result.id);
@@ -31,7 +31,7 @@ export class UsersService {
     }
   }
 
-  async findOne(id: UserDTO.FindOne.RequestType) {
+  async findOne(id: UserDTO.FindOne.FRequest) {
     try {
       const result = await this.userRepository.findOne({
         where: { id: id },
@@ -43,7 +43,7 @@ export class UsersService {
     }
   }
 
-  async update(dto: UserDTO.UpdateOne.RequestType) {
+  async update(dto: UserDTO.UpdateOne.URequest) {
     try {
       const result = await this.userRepository.update(dto.id, dto);
       if (result.affected === 0) {
@@ -55,7 +55,7 @@ export class UsersService {
     }
   }
 
-  async remove(id: UserDTO.DeleteOne.RequestType) {
+  async remove(id: UserDTO.DeleteOne.DRequest) {
     try {
       const result = await this.userRepository.delete(id);
       if (result.affected === 0) {

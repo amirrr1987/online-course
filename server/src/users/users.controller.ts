@@ -4,6 +4,7 @@ import {
   Post,
   Body,
   Patch,
+  Put,
   Param,
   Delete,
   ParseIntPipe,
@@ -13,11 +14,11 @@ import {
 import { UsersService } from './users.service';
 import { UserDTO } from './user.dto';
 import {
-  ApiBody,
-  ApiOperation,
   ApiResponse,
   OmitType,
   PartialType,
+  IntersectionType,
+  PickType,
 } from '@nestjs/swagger';
 
 @Controller('users')
@@ -25,72 +26,44 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @UsePipes(
-    new ValidationPipe({
-      always: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiBody({
-    description: 'The data needed to create a new user',
-    type: UserDTO.CreateOne.RequestType,
-  })
   @ApiResponse({
     status: 201,
-    description: 'The user has been successfully created.',
-    type: UserDTO.CreateOne.ResponseType,
+    description: 'User has been created successfully.',
+    type: UserDTO.CreateOne.CResponse,
   })
-  create(@Body() dto: UserDTO.CreateOne.RequestType) {
+  create(@Body() dto: UserDTO.CreateOne.CRequest) {
     return this.usersService.create(dto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retrieve all users' })
   @ApiResponse({
     status: 200,
-    description: 'A list of users.',
-    type: UserDTO.GetAll.ResponseType,
-    isArray: true,
+    description: 'Fetched all users successfully.',
+    type: UserDTO.GetAll.GResponse,
   })
   async findAll() {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Retrieve a single user by ID' })
+  @Patch()
   @ApiResponse({
     status: 200,
-    description: 'Details of the requested user.',
-    type: UserDTO.FindOne.ResponseType,
+    description: 'Fetched all users successfully.',
+    type: IntersectionType(
+      PartialType(OmitType(UserDTO.UpdateOne.URequest, ['id'])),
+      PickType(UserDTO.UpdateOne.URequest, ['id']),
+    ),
   })
-  findOne(@Param('id', new ParseIntPipe()) id: UserDTO.FindOne.RequestType) {
-    return this.usersService.findOne(id);
-  }
-
-  @Patch('')
-  @ApiResponse({
-    status: 200,
-    description: 'The user has been successfully updated.',
-    type: UserDTO.UpdateOne.ResponseType,
-  })
-  @ApiBody({
-    description: 'The data needed to create a new user',
-    type: PartialType(OmitType(UserDTO.UpdateOne.RequestType, ['id'])),
-  })
-  update(@Body() dto: UserDTO.UpdateOne.RequestType) {
+  update(@Body() dto: UserDTO.UpdateOne.URequest) {
     return this.usersService.update(dto);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a user by ID' })
   @ApiResponse({
-    description: 'The user has been successfully deleted.',
-    type: UserDTO.DeleteOne.ResponseType,
+    description: 'User has been deleted successfully.',
+    type: UserDTO.DeleteOne.DResponse,
   })
-  remove(@Param('id', new ParseIntPipe()) id: UserDTO.DeleteOne.RequestType) {
+  remove(@Param('id', new ParseIntPipe()) id: UserDTO.DeleteOne.DRequest) {
     return this.usersService.remove(id);
   }
 }
