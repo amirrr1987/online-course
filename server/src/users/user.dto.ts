@@ -87,7 +87,7 @@ export namespace UserDTO {
     export class UResponse implements ResponseDTO.UpdateOne {
       @ApiProperty({
         type: Number,
-        example: HttpStatus.ACCEPTED,
+        default: HttpStatus.ACCEPTED,
       })
       statusCode: number;
 
