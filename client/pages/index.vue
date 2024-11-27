@@ -2,10 +2,10 @@
   <section>
     <UContainer :ui="{ base: 'grid gap-4 lg:grid-cols-4' }">
       <UCard v-for="item in data" :key="item.id"
-        >{{ item }}
+        >{{ item.title }}
 
         <template #footer>
-          <ULink :to="item.id">more</ULink>
+          <NuxtLink :to="`/${item.id}`">more</NuxtLink>
         </template>
       </UCard>
     </UContainer>
