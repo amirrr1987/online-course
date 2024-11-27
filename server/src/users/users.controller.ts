@@ -18,6 +18,7 @@ import {
   PartialType,
   IntersectionType,
   PickType,
+  ApiBody,
 } from '@nestjs/swagger';
 
 @Controller('users')
@@ -61,13 +62,14 @@ export class UsersController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 200,
-    description: 'Fetched all users successfully.',
+  @ApiBody({
     type: IntersectionType(
       PartialType(OmitType(UserDTO.UpdateOne.URequest, ['id'])),
       PickType(UserDTO.UpdateOne.URequest, ['id']),
     ),
+  })
+  @ApiResponse({
+    type: UserDTO.UpdateOne.UResponse,
   })
   update(@Body() dto: UserDTO.UpdateOne.URequest) {
     return this.usersService.update(dto);
