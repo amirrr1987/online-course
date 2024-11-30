@@ -5,4 +5,4 @@ export type DtoRoleUpdateByIdRequestParam = DtoRoleBase['id'];
 export class DtoRoleUpdateByIdRequestBody extends IntersectionType(
   PartialType(OmitType(DtoRoleBase, ['id', 'created_at', 'updated_at'])),
 ) {}
-export class DtoRoleUpdateByIdResponseBody extends DtoRoleBase {}
+export class DtoRoleUpdateByIdResponseBody {}
