@@ -6,6 +6,6 @@ export class Role extends CoreEntity {
   @Column({ type: 'varchar', length: 255 })
   label: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'varchar' })
   value: string;
 }

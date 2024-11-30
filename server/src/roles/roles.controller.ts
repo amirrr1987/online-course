@@ -6,32 +6,28 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
   UsePipes,
   ValidationPipe,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
+import { IRolesController } from './interfaces/roles.controller.interface';
 import {
-  RoleCreateOneRequest,
-  RoleCreateOneResponse,
-  RoleDeleteOneRequest,
-  RoleDeleteOneResponse,
-  RoleFindOneRequest,
-  RoleFindOneResponse,
-  RoleGetAllResponse,
-  RoleUpdateOneRequest,
+  DtoRoleCreateOneRequestBody,
+  DtoRoleCreateOneResponseBody,
+  DtoRoleFindAllResponseBody,
+  DtoRoleFindByIdRequestParam,
+  DtoRoleFindByIdResponseBody,
+  DtoRoleRemoveByIdRequestParam,
+  DtoRoleRemoveByIdResponseBody,
+  DtoRoleUpdateByIdRequestBody,
+  DtoRoleUpdateByIdRequestParam,
+  DtoRoleUpdateByIdResponseBody,
 } from './dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ResponseService } from 'src/response/response.service';
-import { StandardResponse } from 'nest-standard-response';
 
-@ApiTags('Roles')
 @Controller('roles')
-export class RolesController {
-  constructor(
-    private readonly rolesService: RolesService,
-    private readonly responseService: ResponseService,
-  ) {}
+export class RolesController implements IRolesController {
+  constructor(private readonly rolesService: RolesService) {}
 
   @Post()
   @UsePipes(
@@ -42,13 +38,10 @@ export class RolesController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 201,
-    description: 'Role has been created successfully.',
-    type: RoleCreateOneResponse,
-  })
-  async create(@Body() dto: RoleCreateOneRequest) {
-    return await this.rolesService.create(dto);
+  create(
+    @Body() dto: DtoRoleCreateOneRequestBody,
+  ): Promise<DtoRoleCreateOneResponseBody> {
+    return this.rolesService.create(dto);
   }
 
   @Get()
@@ -60,14 +53,7 @@ export class RolesController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 200,
-    description: 'Roles has been fetch successfully.',
-    type: RoleGetAllResponse,
-    isArray: true,
-  })
-  @StandardResponse({ isPaginated: true })
-  findAll() {
+  findAll(): Promise<DtoRoleFindAllResponseBody> {
     return this.rolesService.findAll();
   }
 
@@ -80,13 +66,10 @@ export class RolesController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 200,
-    description: 'Roles has been fetch successfully.',
-    type: RoleFindOneResponse,
-  })
-  findOne(@Param('id') id: RoleFindOneRequest) {
-    return this.rolesService.findOne(id);
+  findById(
+    @Param('id', new ParseIntPipe()) id: DtoRoleFindByIdRequestParam,
+  ): Promise<DtoRoleFindByIdResponseBody> {
+    return this.rolesService.findById(id);
   }
 
   @Patch(':id')
@@ -98,16 +81,11 @@ export class RolesController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 200,
-    description: 'Roles has been fetch successfully.',
-    // type: RoleUpdateResponse,
-  })
-  update(
-    @Param('id') id: RoleFindOneRequest,
-    @Body() dto: RoleUpdateOneRequest,
-  ) {
-    return this.rolesService.update(id, dto);
+  updateById(
+    @Param('id', new ParseIntPipe()) id: DtoRoleUpdateByIdRequestParam,
+    @Body() dto: DtoRoleUpdateByIdRequestBody,
+  ): Promise<DtoRoleUpdateByIdResponseBody> {
+    return this.rolesService.updateById(id, dto);
   }
 
   @Delete(':id')
@@ -119,12 +97,9 @@ export class RolesController {
       transform: true,
     }),
   )
-  @ApiResponse({
-    status: 200,
-    description: 'Roles has been fetch successfully.',
-    type: RoleDeleteOneResponse,
-  })
-  remove(@Param('id') id: RoleDeleteOneRequest) {
-    return this.rolesService.remove(id);
+  deleteById(
+    @Param('id', new ParseIntPipe()) id: DtoRoleRemoveByIdRequestParam,
+  ): Promise<DtoRoleRemoveByIdResponseBody> {
+    return this.rolesService.deleteById(id);
   }
 }
