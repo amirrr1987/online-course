@@ -13,13 +13,13 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 // import { SssModule } from './sss/sss.module';
 // import { AdelModule } from './adel/adel.module';
 // import { AdeaModule } from './adea/adea.module';
-// import { StandardResponseModule } from 'nest-standard-response';
+import { StandardResponseModule } from 'nest-standard-response';
 import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-    // StandardResponseModule.forRoot(),
+    StandardResponseModule.forRoot(),
     // UsersModule,
     // CategoriesModule,
     // CoursesModule,

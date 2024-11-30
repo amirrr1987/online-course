@@ -5,18 +5,12 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Roles as RoleEntity } from './role.entity';
+import { Role as RoleEntity } from './role.entity';
 import {
   RoleCreateOneRequest,
-  RoleCreateOneResponse,
   RoleDeleteOneRequest,
-  RoleDeleteOneResponse,
   RoleFindOneRequest,
-  RoleFindOneResponse,
-  RoleGetAllRequest,
-  RoleGetAllResponse,
   RoleUpdateOneRequest,
-  RoleUpdateOneResponse,
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
 
@@ -33,8 +27,8 @@ export class RolesService {
    * @returns A promise that resolves with an array of roles.
    */
   async findAll() {
-    const roles = await this.roleRepository.find();
-    return this.responseService.findAll('roles', roles);
+    return await this.roleRepository.find();
+    // return this.responseService.findAll('roles', roles);
   }
 
   /**
@@ -47,7 +41,8 @@ export class RolesService {
     if (!role.id) {
       throw new NotFoundException(`role with ID ${id} not found`);
     }
-    return this.responseService.findOne('Role', role);
+    // return this.responseService.findOne('Role', role);
+    return role;
   }
 
   /**
@@ -72,8 +67,8 @@ export class RolesService {
     // return data;
   }
 
-  async update(dto: RoleUpdateOneRequest) {
-    const role = await this.roleRepository.findOne({ where: { id: dto.id } });
+  async update(id, dto: RoleUpdateOneRequest) {
+    const role = await this.roleRepository.findOne({ where: { id: id } });
 
     if (!role.id) {
       throw new NotFoundException(`role with ID ${role.id} not found.`);
@@ -81,7 +76,7 @@ export class RolesService {
 
     await this.roleRepository.update(role.id, dto);
 
-    return this.responseService.updateOne('role', role.id);
+    return role;
   }
 
   /**

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
-import { BaseRoleDto } from './base-role.dto';
+import { RoleBaseDto } from './role-base.dto';
 
-export type RoleDeleteOneRequest = BaseRoleDto['id'];
+export type RoleDeleteOneRequest = RoleBaseDto['id'];
 
 export class RoleDeleteOneResponse {
   @ApiProperty({

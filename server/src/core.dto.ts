@@ -1,9 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNumber } from 'class-validator';
 
-class CoreDto {
-  sib: string;
-}
+class CoreDto {}
 
 export class UpdateCoreDto extends PartialType(CoreDto) {
   @IsNumber()

@@ -1,17 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
+import {
+  IntersectionType,
+  OmitType,
+  PartialType,
+  PickType,
+} from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber } from 'class-validator';
-import { RoleCreateOneRequest } from './create-role.dto';
 import { HttpStatus } from '@nestjs/common';
+import { RoleBaseDto } from './role-base.dto';
 
-export class RoleUpdateOneRequest extends PartialType(RoleCreateOneRequest) {
-  @IsNumber()
-  @ApiProperty({
-    type: Number,
-    required: false,
-  })
-  id: number;
-}
+export class RoleUpdateOneRequest extends IntersectionType(
+  PartialType(OmitType(RoleBaseDto, ['id'])),
+) {}
 
 export class RoleUpdateOneResponse {
   @ApiProperty({

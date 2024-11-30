@@ -8,6 +8,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import {
@@ -47,8 +48,7 @@ export class RolesController {
     type: RoleCreateOneResponse,
   })
   async create(@Body() dto: RoleCreateOneRequest) {
-    const data = await this.rolesService.create(dto);
-    // return this.responseService.createOne('role', data.id);
+    return await this.rolesService.create(dto);
   }
 
   @Get()
@@ -66,6 +66,7 @@ export class RolesController {
     type: RoleGetAllResponse,
     isArray: true,
   })
+  @StandardResponse({ isPaginated: true })
   findAll() {
     return this.rolesService.findAll();
   }
@@ -102,8 +103,11 @@ export class RolesController {
     description: 'Roles has been fetch successfully.',
     // type: RoleUpdateResponse,
   })
-  update(@Body() dto: RoleUpdateOneRequest) {
-    return this.rolesService.update(dto);
+  update(
+    @Param('id') id: RoleFindOneRequest,
+    @Body() dto: RoleUpdateOneRequest,
+  ) {
+    return this.rolesService.update(id, dto);
   }
 
   @Delete(':id')

@@ -1,10 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { RoleBaseDto } from './role-base.dto';
 import { HttpStatus } from '@nestjs/common';
-import { ApiProperty, OmitType } from '@nestjs/swagger';
-import { BaseRoleDto } from './base-role.dto';
 
-export class RoleCreateOneRequest extends OmitType(BaseRoleDto, ['id']) {}
-
-export class RoleCreateOneResponse {
+export class RoleGetAllResponse {
   @ApiProperty({
     type: Number,
     example: HttpStatus.CREATED,
@@ -16,4 +14,10 @@ export class RoleCreateOneResponse {
     example: 'The key with ID was created successfully.',
   })
   message: string;
+
+  @ApiProperty({
+    example: HttpStatus.CREATED,
+    type: [RoleBaseDto],
+  })
+  data: RoleBaseDto[];
 }

@@ -5,9 +5,8 @@ export class CoreEntity extends BaseEntity {
   id: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  created_at: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  updatedAt: Date;
-
+  updated_at: Date;
 }
