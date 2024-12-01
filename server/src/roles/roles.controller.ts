@@ -69,7 +69,7 @@ export class RolesController implements IRolesController {
   findById(
     @Param('id', new ParseIntPipe()) id: DtoRoleFindByIdRequestParam,
   ): Promise<DtoRoleFindByIdResponseBody> {
-    return this.rolesService.findById(id);
+    return this.rolesService.findById(+id);
   }
 
   @Patch(':id')
