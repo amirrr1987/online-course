@@ -38,7 +38,7 @@ export class UsersService implements IUsersService {
     });
     if (existingUser) {
       throw new ConflictException(
-        'Role with the provided value already exists.',
+        'User with the provided value already exists.',
       );
     }
     const user = this.userRepository.create(dto);
@@ -54,7 +54,7 @@ export class UsersService implements IUsersService {
     return {
       succuss: true,
       status: 200,
-      message: 'Roles retrieved successfully',
+      message: 'Users retrieved successfully',
       data: users,
     };
   }
@@ -63,7 +63,7 @@ export class UsersService implements IUsersService {
   ): Promise<DtoUserFindByIdResponseBody> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
-      throw new NotFoundException('Role not found.');
+      throw new NotFoundException('User not found.');
     }
     return {
       succuss: true,
@@ -78,15 +78,15 @@ export class UsersService implements IUsersService {
   ): Promise<DtoUserUpdateByIdResponseBody> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
-      throw new NotFoundException('Role not found.');
+      throw new NotFoundException('User not found.');
     }
     if (dto.value) {
-      const duplicateRole = await this.userRepository.findOneBy({
+      const duplicateUser = await this.userRepository.findOneBy({
         value: dto.value,
       });
-      if (duplicateRole && duplicateRole.id !== id) {
+      if (duplicateUser && duplicateUser.id !== id) {
         throw new ConflictException(
-          'Role with the provided value already exists.',
+          'User with the provided value already exists.',
         );
       }
     }
@@ -107,7 +107,7 @@ export class UsersService implements IUsersService {
   ): Promise<DtoUserDeleteByIdResponseBody> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException('Role with this ID not found.');
+      throw new NotFoundException('User with this ID not found.');
     }
     return {
       succuss: true,
