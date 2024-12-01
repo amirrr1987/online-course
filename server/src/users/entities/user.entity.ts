@@ -17,11 +17,11 @@ export class User extends CoreEntity {
   @Column({ type: 'int', nullable: true })
   age: number;
 
-  @ManyToMany(() => Course, (course) => course.roles)
-  @JoinTable()
-  courses: Course[];
+  //   @ManyToMany(() => Course, (course) => course.roles)
+  //   @JoinTable()
+  //   courses: Course[];
 
-  @ManyToMany(() => Role, (role) => role.courses)
-  @JoinTable()
-  roles: Role[];
+  //   @ManyToMany(() => Role, (role) => role.courses)
+  //   @JoinTable()
+  //   roles: Role[];
 }
