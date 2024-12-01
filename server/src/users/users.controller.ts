@@ -8,35 +8,55 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/user-update-by-id.dto';
+import { IUsersController } from './interfaces/users.controller.interface';
+import {
+  DtoUserCreateOneRequestBody,
+  DtoUserCreateOneResponseBody,
+  DtoUserFindAllResponseBody,
+  DtoUserFindByIdRequestParam,
+  DtoUserFindByIdResponseBody,
+  DtoUserUpdateByIdRequestParam,
+  DtoUserUpdateByIdRequestBody,
+  DtoUserUpdateByIdResponseBody,
+  DtoUserDeleteByIdRequestParam,
+  DtoUserDeleteByIdResponseBody,
+} from './dto';
 
 @Controller('users')
-export class UsersController {
+export class UsersController implements IUsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(
+    @Body() dto: DtoUserCreateOneRequestBody,
+  ): Promise<DtoUserCreateOneResponseBody> {
+    return this.usersService.create(dto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<DtoUserFindAllResponseBody> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findById(
+    @Param('id') id: DtoUserFindByIdRequestParam,
+  ): Promise<DtoUserFindByIdResponseBody> {
     return this.usersService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  updateById(
+    @Param('id') id: DtoUserUpdateByIdRequestParam,
+    @Body() dto: DtoUserUpdateByIdRequestBody,
+  ): Promise<DtoUserUpdateByIdResponseBody> {
+    return this.usersService.update(+id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  deleteById(
+    @Param('id') id: DtoUserDeleteByIdRequestParam,
+  ): Promise<DtoUserDeleteByIdResponseBody> {
     return this.usersService.remove(+id);
   }
 }
