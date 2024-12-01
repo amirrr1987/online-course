@@ -1,4 +1,3 @@
-import { StandardParams } from 'nest-standard-response';
 import {
   DtoUserCreateOneRequestBody,
   DtoUserCreateOneResponseBody,
@@ -8,8 +7,8 @@ import {
   DtoUserUpdateByIdRequestParam,
   DtoUserUpdateByIdRequestBody,
   DtoUserUpdateByIdResponseBody,
-  DtoUserRemoveByIdRequestParam,
-  DtoUserRemoveByIdResponseBody,
+  DtoUserDeleteByIdRequestParam,
+  DtoUserDeleteByIdResponseBody,
 } from '../dto';
 
 export interface IUsersController {
@@ -25,6 +24,6 @@ export interface IUsersController {
     dto: DtoUserUpdateByIdRequestBody,
   ): Promise<DtoUserUpdateByIdResponseBody>;
   deleteById(
-    id: DtoUserRemoveByIdRequestParam,
-  ): Promise<DtoUserRemoveByIdResponseBody>;
+    id: DtoUserDeleteByIdRequestParam,
+  ): Promise<DtoUserDeleteByIdResponseBody>;
 }

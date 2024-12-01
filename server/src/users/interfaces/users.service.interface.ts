@@ -7,23 +7,23 @@ import {
   DtoUserUpdateByIdRequestParam,
   DtoUserUpdateByIdRequestBody,
   DtoUserUpdateByIdResponseBody,
-  DtoUserRemoveByIdRequestParam,
-  DtoUserRemoveByIdResponseBody,
+  DtoUserDeleteByIdRequestParam,
+  DtoUserDeleteByIdResponseBody,
 } from '../dto';
 
 export interface IUsersService {
   create(
-    dto: DtoRoleCreateOneRequestBody,
-  ): Promise<DtoRoleCreateOneResponseBody>;
-  findAll(): Promise<DtoRoleFindAllResponseBody>;
+    dto: DtoUserCreateOneRequestBody,
+  ): Promise<DtoUserCreateOneResponseBody>;
+  findAll(): Promise<DtoUserFindAllResponseBody>;
   findById(
-    id: DtoRoleFindByIdRequestParam,
-  ): Promise<DtoRoleFindByIdResponseBody>;
+    id: DtoUserFindByIdRequestParam,
+  ): Promise<DtoUserFindByIdResponseBody>;
   updateById(
-    id: DtoRoleUpdateByIdRequestParam,
-    dto: DtoRoleUpdateByIdRequestBody,
-  ): Promise<DtoRoleUpdateByIdResponseBody>;
+    id: DtoUserUpdateByIdRequestParam,
+    dto: DtoUserUpdateByIdRequestBody,
+  ): Promise<DtoUserUpdateByIdResponseBody>;
   deleteById(
-    id: DtoRoleRemoveByIdRequestParam,
-  ): Promise<DtoRoleRemoveByIdResponseBody>;
+    id: DtoUserDeleteByIdRequestParam,
+  ): Promise<DtoUserDeleteByIdResponseBody>;
 }

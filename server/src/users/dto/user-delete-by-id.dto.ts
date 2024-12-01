@@ -1,7 +1,7 @@
 import { DtoUserBase } from './user-base.dto';
 
-export type DtoUserRemoveByIdRequestParam = DtoUserBase['id'];
-export class DtoUserRemoveByIdResponseBody {
+export type DtoUserDeleteByIdRequestParam = DtoUserBase['id'];
+export class DtoUserDeleteByIdResponseBody {
   succuss: boolean;
   status: number;
   message: string;
