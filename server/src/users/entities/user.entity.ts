@@ -1,7 +1,14 @@
 import { CoreEntity } from 'src/core.entity';
 import { Course } from 'src/courses/entities/course.entity';
-import { Role } from 'src/roles/entities/role.entity';
-import { Entity, Column, ManyToMany, JoinTable, OneToOne } from 'typeorm';
+import { Role as RoleEntity } from 'src/roles/entities/role.entity';
+import {
+  Entity,
+  Column,
+  ManyToMany,
+  JoinTable,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends CoreEntity {
@@ -21,7 +28,7 @@ export class User extends CoreEntity {
   @JoinTable()
   courses: Course[];
 
-  @OneToOne(() => Role, (role) => role.id)
-  @JoinTable()
-  role: Role;
+  @OneToOne(() => RoleEntity, (role) => role.id)
+  @JoinColumn()
+  role: RoleEntity;
 }

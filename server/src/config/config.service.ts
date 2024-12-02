@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 
+import { Category as CategoryEntity } from 'src/categories/entities/category.entity';
+import { Course as CourseEntity } from 'src/courses/entities/course.entity';
 import { Role as RoleEntity } from 'src/roles/entities/role.entity';
+import { User as UserEntity } from 'src/users/entities/user.entity';
 
 dotenv.config();
 @Injectable()
@@ -17,8 +20,9 @@ export class ConfigService {
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [RoleEntity],
-      synchronize: false,
+      entities: [RoleEntity, UserEntity, CategoryEntity, CourseEntity],
+      synchronize: true,
+      logging: true,
     };
   }
 }
