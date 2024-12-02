@@ -1,5 +1,5 @@
 import { CoreEntity } from 'src/core.entity';
-import { Course } from 'src/courses/entities/course.entity';
+import { Course as CourseEntity } from 'src/courses/entities/course.entity';
 import { Role as RoleEntity } from 'src/roles/entities/role.entity';
 import {
   Entity,
@@ -24,9 +24,9 @@ export class User extends CoreEntity {
   @Column({ type: 'int', nullable: true })
   age: number;
 
-  @ManyToMany(() => Course, (course) => course.id)
+  @ManyToMany(() => CourseEntity)
   @JoinTable()
-  courses: Course[];
+  courses: CourseEntity[];
 
   @OneToOne(() => RoleEntity, (role) => role.id)
   @JoinColumn()

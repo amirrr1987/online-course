@@ -1,4 +1,5 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsDate, IsNumber, IsString } from 'class-validator';
+import { DtoCourseBase } from 'src/courses/dto/course-base.dto';
 
 export class DtoUserBase {
   @IsNumber()
@@ -9,6 +10,15 @@ export class DtoUserBase {
 
   @IsString()
   mobile: string;
+
+  @IsNumber()
+  age: number;
+
+  @IsArray()
+  courses: DtoCourseBase[];
+
+  // @IsString()
+  // role: 
 
   @IsDate()
   created_at: Date;
