@@ -1,7 +1,7 @@
 import { CoreEntity } from 'src/core.entity';
-import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
-// import { Course } from './course.entity';
+import { Course } from 'src/courses/entities/course.entity';
 import { Role } from 'src/roles/entities/role.entity';
+import { Entity, Column, ManyToMany, JoinTable, OneToOne } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends CoreEntity {
@@ -17,11 +17,11 @@ export class User extends CoreEntity {
   @Column({ type: 'int', nullable: true })
   age: number;
 
-  //   @ManyToMany(() => Course, (course) => course.roles)
-  //   @JoinTable()
-  //   courses: Course[];
+  @ManyToMany(() => Course, (course) => course.id)
+  @JoinTable()
+  courses: Course[];
 
-  //   @ManyToMany(() => Role, (role) => role.courses)
-  //   @JoinTable()
-  //   roles: Role[];
+  @OneToOne(() => Role, (role) => role.id)
+  @JoinTable()
+  roles: Role;
 }

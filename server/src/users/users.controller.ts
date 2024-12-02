@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { IUsersController } from './interfaces/users.controller.interface';
@@ -40,23 +41,23 @@ export class UsersController implements IUsersController {
 
   @Get(':id')
   findById(
-    @Param('id') id: DtoUserFindByIdRequestParam,
+    @Param('id', new ParseIntPipe()) id: DtoUserFindByIdRequestParam,
   ): Promise<DtoUserFindByIdResponseBody> {
-    return this.usersService.findOne(+id);
+    return this.usersService.findById(id);
   }
 
   @Patch(':id')
   updateById(
-    @Param('id') id: DtoUserUpdateByIdRequestParam,
+    @Param('id', new ParseIntPipe()) id: DtoUserUpdateByIdRequestParam,
     @Body() dto: DtoUserUpdateByIdRequestBody,
   ): Promise<DtoUserUpdateByIdResponseBody> {
-    return this.usersService.update(+id, dto);
+    return this.usersService.updateById(id, dto);
   }
 
   @Delete(':id')
   deleteById(
-    @Param('id') id: DtoUserDeleteByIdRequestParam,
+    @Param('id', new ParseIntPipe()) id: DtoUserDeleteByIdRequestParam,
   ): Promise<DtoUserDeleteByIdResponseBody> {
-    return this.usersService.remove(+id);
+    return this.usersService.deleteById(id);
   }
 }

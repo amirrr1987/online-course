@@ -1,5 +1,5 @@
 import { User } from '../entities/user.entity';
-import { DtoUserBase } from './user-base.dto';
+import { DtoUserBase } from './course-base.dto';
 
 export class DtoUserFindAllResponseBody {
   succuss: boolean;

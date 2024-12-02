@@ -3,12 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import {
   DtoUserUpdateByIdRequestBody,
   DtoUserUpdateByIdRequestParam,
   DtoUserUpdateByIdResponseBody,
-  UpdateUserDto,
 } from './dto/user-update-by-id.dto';
 import { User as UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -23,18 +21,20 @@ import {
   DtoUserDeleteByIdRequestParam,
   DtoUserDeleteByIdResponseBody,
 } from './dto';
+import { ResponseService } from 'src/response/response.service';
 
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly responseService: ResponseService,
   ) {}
   async create(
     dto: DtoUserCreateOneRequestBody,
   ): Promise<DtoUserCreateOneResponseBody> {
     const existingUser = await this.userRepository.findOneBy({
-      value: dto.value,
+      mobile: dto.mobile,
     });
     if (existingUser) {
       throw new ConflictException(
@@ -43,11 +43,7 @@ export class UsersService implements IUsersService {
     }
     const user = this.userRepository.create(dto);
     await this.userRepository.save(user);
-    return {
-      succuss: true,
-      message: '',
-      status: 201,
-    };
+    return this.responseService.createOne('user', user.id);
   }
   async findAll(): Promise<DtoUserFindAllResponseBody> {
     const users = await this.userRepository.find();
@@ -80,9 +76,9 @@ export class UsersService implements IUsersService {
     if (!user) {
       throw new NotFoundException('User not found.');
     }
-    if (dto.value) {
+    if (dto.mobile) {
       const duplicateUser = await this.userRepository.findOneBy({
-        value: dto.value,
+        mobile: dto.mobile,
       });
       if (duplicateUser && duplicateUser.id !== id) {
         throw new ConflictException(
