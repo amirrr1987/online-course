@@ -6,37 +6,58 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import {
+  DtoCourseCreateOneRequestBody,
+  DtoCourseCreateOneResponseBody,
+  DtoCourseDeleteByIdRequestParam,
+  DtoCourseDeleteByIdResponseBody,
+  DtoCourseFindAllResponseBody,
+  DtoCourseFindByIdRequestParam,
+  DtoCourseFindByIdResponseBody,
+  DtoCourseUpdateByIdRequestBody,
+  DtoCourseUpdateByIdRequestParam,
+  DtoCourseUpdateByIdResponseBody,
+} from './dto';
+import { IUsersController } from './interfaces/courses.controller.interface';
 
 @Controller('courses')
-export class CoursesController {
+export class CoursesController implements IUsersController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.coursesService.create(createCourseDto);
+  create(
+    @Body() dto: DtoCourseCreateOneRequestBody,
+  ): Promise<DtoCourseCreateOneResponseBody> {
+    return this.coursesService.create(dto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<DtoCourseFindAllResponseBody> {
     return this.coursesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(+id);
+  findById(
+    @Param('id', new ParseIntPipe()) id: DtoCourseFindByIdRequestParam,
+  ): Promise<DtoCourseFindByIdResponseBody> {
+    return this.coursesService.findById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+  updateById(
+    @Param('id', new ParseIntPipe()) id: DtoCourseUpdateByIdRequestParam,
+    @Body() dto: DtoCourseUpdateByIdRequestBody,
+  ): Promise<DtoCourseUpdateByIdResponseBody> {
+    return this.coursesService.updateById(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.coursesService.remove(+id);
+  deleteById(
+    @Param('id', new ParseIntPipe()) id: DtoCourseDeleteByIdRequestParam,
+  ): Promise<DtoCourseDeleteByIdResponseBody> {
+    return this.coursesService.deleteById(id);
   }
 }

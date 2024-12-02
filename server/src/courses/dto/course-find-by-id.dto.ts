@@ -1,10 +1,10 @@
-import { User } from '../entities/user.entity';
-import { DtoUserBase } from './course-base.dto';
+import { Course } from '../entities/course.entity';
+import { DtoCourseBase } from './course-base.dto';
 
-export type DtoUserFindByIdRequestParam = DtoUserBase['id'];
-export class DtoUserFindByIdResponseBody {
+export type DtoCourseFindByIdRequestParam = DtoCourseBase['id'];
+export class DtoCourseFindByIdResponseBody {
   succuss: boolean;
   status: number;
   message: string;
-  data: User;
+  data: Course;
 }

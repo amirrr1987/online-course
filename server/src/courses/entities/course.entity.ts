@@ -1,5 +1,6 @@
 import { CoreEntity } from 'src/core.entity';
-import { Entity, Column } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'courses' })
 export class Course extends CoreEntity {
@@ -8,4 +9,7 @@ export class Course extends CoreEntity {
 
   @Column({ unique: true, type: 'varchar', length: 255 })
   value: string;
+
+  @ManyToMany(() => User, (course) => course.id)
+  user: User;
 }

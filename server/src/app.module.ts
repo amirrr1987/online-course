@@ -7,12 +7,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ResponseService } from './response/response.service';
 import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
+import { CategoriesModule } from './categories/categories.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(config.getTypeOrmConfig()),
     RolesModule,
     UsersModule,
     CoursesModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService, ResponseService],

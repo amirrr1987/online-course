@@ -1,5 +1,6 @@
 import { CoreEntity } from 'src/core.entity';
-import { Entity, Column } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, OneToOne, JoinTable } from 'typeorm';
 
 @Entity({ name: 'roles' })
 export class Role extends CoreEntity {
@@ -8,4 +9,8 @@ export class Role extends CoreEntity {
 
   @Column({ unique: true, type: 'varchar' })
   value: string;
+
+  @OneToOne(() => User, (user) => user.id)
+  @JoinTable()
+  user: User;
 }

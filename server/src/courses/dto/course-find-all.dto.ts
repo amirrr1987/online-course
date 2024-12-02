@@ -1,9 +1,9 @@
-import { User } from '../entities/user.entity';
-import { DtoUserBase } from './course-base.dto';
+import { Course } from '../entities/course.entity';
+import { DtoCourseBase } from './course-base.dto';
 
-export class DtoUserFindAllResponseBody {
+export class DtoCourseFindAllResponseBody {
   succuss: boolean;
   status: number;
   message: string;
-  data: Array<User>;
+  data: Array<Course>;
 }

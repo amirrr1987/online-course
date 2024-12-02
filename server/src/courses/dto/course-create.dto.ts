@@ -1,9 +1,9 @@
 import { OmitType } from '@nestjs/mapped-types';
-import { DtoUserBase } from './course-base.dto';
+import { DtoCourseBase } from './course-base.dto';
 import { ResponseData } from '../../response/response.service.interface';
-export class DtoUserCreateOneRequestBody extends OmitType(DtoUserBase, [
+export class DtoCourseCreateOneRequestBody extends OmitType(DtoCourseBase, [
   'id',
   'created_at',
   'updated_at',
 ]) {}
-export class DtoUserCreateOneResponseBody extends ResponseData {}
+export class DtoCourseCreateOneResponseBody extends ResponseData {}

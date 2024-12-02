@@ -23,5 +23,5 @@ export class User extends CoreEntity {
 
   @OneToOne(() => Role, (role) => role.id)
   @JoinTable()
-  roles: Role;
+  role: Role;
 }

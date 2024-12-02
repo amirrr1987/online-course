@@ -1,7 +1,7 @@
-import { DtoUserBase } from './course-base.dto';
+import { DtoCourseBase } from './course-base.dto';
 
-export type DtoUserDeleteByIdRequestParam = DtoUserBase['id'];
-export class DtoUserDeleteByIdResponseBody {
+export type DtoCourseDeleteByIdRequestParam = DtoCourseBase['id'];
+export class DtoCourseDeleteByIdResponseBody {
   succuss: boolean;
   status: number;
   message: string;

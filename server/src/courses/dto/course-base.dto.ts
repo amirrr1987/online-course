@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
 
-export class DtoUserBase {
+export class DtoCourseBase {
   @IsNumber()
   id: number;
 
@@ -8,7 +8,7 @@ export class DtoUserBase {
   label: string;
 
   @IsString()
-  mobile: string;
+  value: string;
 
   @IsDate()
   created_at: Date;
