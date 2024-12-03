@@ -8,16 +8,16 @@ import { Role as RoleEntity } from './entities/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IRolesService } from './interfaces/roles.service.interface';
 import {
-  DtoRoleCreateOneRequestBody,
-  DtoRoleCreateOneResponseBody,
-  DtoRoleFindAllResponseBody,
-  DtoRoleFindByIdRequestParam,
-  DtoRoleFindByIdResponseBody,
-  DtoRoleRemoveByIdRequestParam,
-  DtoRoleRemoveByIdResponseBody,
-  DtoRoleUpdateByIdRequestBody,
-  DtoRoleUpdateByIdRequestParam,
-  DtoRoleUpdateByIdResponseBody,
+  RoleCreateRequestDto,
+  RoleCreateResponseDto,
+  RoleFindAllResponseDto,
+  RoleFindByIdRequestIdParamDto,
+  RoleFindByIdResponseDto,
+  RoleDeleteByIdRequestIdParamDto,
+  RoleDeleteByIdResponseDto,
+  RoleUpdateByIdRequestDto,
+  RoleUpdateByIdResponseDto,
+  RoleUpdateByIdRequestIdParamDto,
 } from './dto';
 
 @Injectable()
@@ -27,9 +27,7 @@ export class RolesService implements IRolesService {
     private readonly roleRepository: Repository<RoleEntity>,
   ) {}
 
-  async create(
-    dto: DtoRoleCreateOneRequestBody,
-  ): Promise<DtoRoleCreateOneResponseBody> {
+  async create(dto: RoleCreateRequestDto): Promise<RoleCreateResponseDto> {
     const existingRole = await this.roleRepository.findOneBy({
       value: dto.value,
     });
@@ -47,7 +45,7 @@ export class RolesService implements IRolesService {
     };
   }
 
-  async findAll(): Promise<DtoRoleFindAllResponseBody> {
+  async findAll(): Promise<RoleFindAllResponseDto> {
     const roles = await this.roleRepository.find();
     return {
       succuss: true,
@@ -58,8 +56,8 @@ export class RolesService implements IRolesService {
   }
 
   async findById(
-    id: DtoRoleFindByIdRequestParam,
-  ): Promise<DtoRoleFindByIdResponseBody> {
+    id: RoleFindByIdRequestIdParamDto,
+  ): Promise<RoleFindByIdResponseDto> {
     const role = await this.roleRepository.findOneBy({ id });
     if (!role) {
       throw new NotFoundException('Role not found.');
@@ -73,9 +71,9 @@ export class RolesService implements IRolesService {
   }
 
   async updateById(
-    id: DtoRoleUpdateByIdRequestParam,
-    dto: DtoRoleUpdateByIdRequestBody,
-  ): Promise<DtoRoleUpdateByIdResponseBody> {
+    id: RoleUpdateByIdRequestIdParamDto,
+    dto: RoleUpdateByIdRequestDto,
+  ): Promise<RoleUpdateByIdResponseDto> {
     const role = await this.roleRepository.findOneBy({ id });
     if (!role) {
       throw new NotFoundException('Role not found.');
@@ -104,8 +102,8 @@ export class RolesService implements IRolesService {
   }
 
   async deleteById(
-    id: DtoRoleRemoveByIdRequestParam,
-  ): Promise<DtoRoleRemoveByIdResponseBody> {
+    id: RoleDeleteByIdRequestIdParamDto,
+  ): Promise<RoleDeleteByIdResponseDto> {
     const result = await this.roleRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('Role with this ID not found.');

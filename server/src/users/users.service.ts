@@ -4,8 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { User as UserEntity } from './entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { IUsersService } from './interfaces/users.service.interface';
 import {
   UserCreateRequestDto,
@@ -26,7 +24,6 @@ import { UserRepository } from './users.repository';
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
-    @InjectRepository(UserEntity)
     private readonly userRepository: UserRepository,
     private readonly roleService: RolesService,
     private readonly responseService: ResponseService,

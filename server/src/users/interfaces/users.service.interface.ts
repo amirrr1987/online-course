@@ -1,6 +1,6 @@
 import {
-  UserCreateOneRequestDto,
-  UserCreateOneResponseDto,
+  UserCreateRequestDto,
+  UserCreateResponseDto,
   UserFindAllResponseDto,
   UserFindByIdRequestIdParamDto,
   UserFindByIdResponseDto,
@@ -12,7 +12,7 @@ import {
 } from '../dto';
 
 export interface IUsersService {
-  create(dto: UserCreateOneRequestDto): Promise<UserCreateOneResponseDto>;
+  create(dto: UserCreateRequestDto): Promise<UserCreateResponseDto>;
   findAll(): Promise<UserFindAllResponseDto>;
   findById(id: UserFindByIdRequestIdParamDto): Promise<UserFindByIdResponseDto>;
   updateById(

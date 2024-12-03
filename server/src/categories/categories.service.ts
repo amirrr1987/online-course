@@ -16,16 +16,13 @@ import {
   DtoCategoryDeleteByIdRequestParam,
   DtoCategoryDeleteByIdResponseBody,
 } from './dto';
-import { Repository } from 'typeorm';
 import { ResponseService } from 'src/response/response.service';
-import { Category as CategoryEntity } from './entities/category.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { CategoriesRepository } from './categories.repository';
 
 @Injectable()
 export class CategoriesService implements ICategoriesService {
   constructor(
-    @InjectRepository(CategoryEntity)
-    private readonly categoryRepository: Repository<CategoryEntity>,
+    private readonly categoryRepository: CategoriesRepository,
     private readonly responseService: ResponseService,
   ) {}
   async create(

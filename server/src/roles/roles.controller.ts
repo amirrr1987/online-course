@@ -13,16 +13,16 @@ import {
 import { RolesService } from './roles.service';
 import { IRolesController } from './interfaces/roles.controller.interface';
 import {
-  DtoRoleCreateOneRequestBody,
-  DtoRoleCreateOneResponseBody,
-  DtoRoleFindAllResponseBody,
-  DtoRoleFindByIdRequestParam,
-  DtoRoleFindByIdResponseBody,
-  DtoRoleRemoveByIdRequestParam,
-  DtoRoleRemoveByIdResponseBody,
-  DtoRoleUpdateByIdRequestBody,
-  DtoRoleUpdateByIdRequestParam,
-  DtoRoleUpdateByIdResponseBody,
+  RoleCreateRequestDto,
+  RoleCreateResponseDto,
+  RoleFindAllResponseDto,
+  RoleFindByIdRequestIdParamDto,
+  RoleFindByIdResponseDto,
+  RoleDeleteByIdRequestIdParamDto,
+  RoleDeleteByIdResponseDto,
+  RoleUpdateByIdRequestDto,
+  RoleUpdateByIdResponseDto,
+  RoleUpdateByIdRequestIdParamDto,
 } from './dto';
 
 @Controller('roles')
@@ -38,9 +38,7 @@ export class RolesController implements IRolesController {
       transform: true,
     }),
   )
-  create(
-    @Body() dto: DtoRoleCreateOneRequestBody,
-  ): Promise<DtoRoleCreateOneResponseBody> {
+  create(@Body() dto: RoleCreateRequestDto): Promise<RoleCreateResponseDto> {
     return this.rolesService.create(dto);
   }
 
@@ -53,7 +51,7 @@ export class RolesController implements IRolesController {
       transform: true,
     }),
   )
-  findAll(): Promise<DtoRoleFindAllResponseBody> {
+  findAll(): Promise<RoleFindAllResponseDto> {
     return this.rolesService.findAll();
   }
 
@@ -67,8 +65,8 @@ export class RolesController implements IRolesController {
     }),
   )
   findById(
-    @Param('id', new ParseIntPipe()) id: DtoRoleFindByIdRequestParam,
-  ): Promise<DtoRoleFindByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: RoleFindByIdRequestIdParamDto,
+  ): Promise<RoleFindByIdResponseDto> {
     return this.rolesService.findById(id);
   }
 
@@ -82,9 +80,9 @@ export class RolesController implements IRolesController {
     }),
   )
   updateById(
-    @Param('id', new ParseIntPipe()) id: DtoRoleUpdateByIdRequestParam,
-    @Body() dto: DtoRoleUpdateByIdRequestBody,
-  ): Promise<DtoRoleUpdateByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: RoleUpdateByIdRequestIdParamDto,
+    @Body() dto: RoleUpdateByIdRequestDto,
+  ): Promise<RoleUpdateByIdResponseDto> {
     return this.rolesService.updateById(id, dto);
   }
 
@@ -98,8 +96,8 @@ export class RolesController implements IRolesController {
     }),
   )
   deleteById(
-    @Param('id', new ParseIntPipe()) id: DtoRoleRemoveByIdRequestParam,
-  ): Promise<DtoRoleRemoveByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: RoleDeleteByIdRequestIdParamDto,
+  ): Promise<RoleDeleteByIdResponseDto> {
     return this.rolesService.deleteById(id);
   }
 }

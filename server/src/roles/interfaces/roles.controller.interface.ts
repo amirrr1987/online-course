@@ -7,8 +7,8 @@ import {
   RoleUpdateByIdRequestIdParamDto,
   RoleUpdateByIdRequestDto,
   RoleUpdateByIdResponseDto,
-  RoleRemoveByIdRequestIdParamDto,
-  RoleRemoveByIdResponseDto,
+  RoleDeleteByIdRequestIdParamDto,
+  RoleDeleteByIdResponseDto,
 } from '../dto';
 
 export interface IRolesController {
@@ -20,6 +20,6 @@ export interface IRolesController {
     dto: RoleUpdateByIdRequestDto,
   ): Promise<RoleUpdateByIdResponseDto>;
   deleteById(
-    id: RoleRemoveByIdRequestIdParamDto,
-  ): Promise<RoleRemoveByIdResponseDto>;
+    id: RoleDeleteByIdRequestIdParamDto,
+  ): Promise<RoleDeleteByIdResponseDto>;
 }
