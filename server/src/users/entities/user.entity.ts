@@ -25,7 +25,17 @@ export class User extends CoreEntity {
   age: number;
 
   @ManyToMany(() => CourseEntity)
-  @JoinTable()
+  @JoinTable({
+    name: 'users_courses',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'course_id',
+      referencedColumnName: 'id',
+    },
+  })
   courses: CourseEntity[];
 
   @OneToOne(() => RoleEntity, (role) => role.id)
