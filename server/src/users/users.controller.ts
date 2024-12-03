@@ -41,14 +41,14 @@ export class UsersController implements IUsersController {
 
   @Get(':id')
   findById(
-    @Param('id', new ParseIntPipe()) id: DtoUserFindByIdRequestParam,
+    @Param('id', ParseIntPipe) id: DtoUserFindByIdRequestParam,
   ): Promise<DtoUserFindByIdResponseBody> {
     return this.usersService.findById(id);
   }
 
   @Patch(':id')
   updateById(
-    @Param('id', new ParseIntPipe()) id: DtoUserUpdateByIdRequestParam,
+    @Param('id', ParseIntPipe) id: DtoUserUpdateByIdRequestParam,
     @Body() dto: DtoUserUpdateByIdRequestBody,
   ): Promise<DtoUserUpdateByIdResponseBody> {
     return this.usersService.updateById(id, dto);
@@ -56,7 +56,7 @@ export class UsersController implements IUsersController {
 
   @Delete(':id')
   deleteById(
-    @Param('id', new ParseIntPipe()) id: DtoUserDeleteByIdRequestParam,
+    @Param('id', ParseIntPipe) id: DtoUserDeleteByIdRequestParam,
   ): Promise<DtoUserDeleteByIdResponseBody> {
     return this.usersService.deleteById(id);
   }

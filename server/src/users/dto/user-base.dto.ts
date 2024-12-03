@@ -17,8 +17,8 @@ export class DtoUserBase {
   @IsArray()
   courses: DtoCourseBase[];
 
-  // @IsString()
-  // role: 
+  @IsNumber()
+  role_id: number;
 
   @IsDate()
   created_at: Date;

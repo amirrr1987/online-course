@@ -9,6 +9,8 @@ import {
   DtoUserUpdateByIdResponseBody,
 } from './dto/user-update-by-id.dto';
 import { User as UserEntity } from './entities/user.entity';
+import { Role as RoleEntity } from 'src/roles/entities/role.entity';
+import { Course as CourseEntity } from 'src/courses/entities/course.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUsersService } from './interfaces/users.service.interface';
@@ -22,12 +24,14 @@ import {
   DtoUserDeleteByIdResponseBody,
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
+import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly roleService: RolesService,
     private readonly responseService: ResponseService,
   ) {}
   async create(
@@ -47,12 +51,7 @@ export class UsersService implements IUsersService {
   }
   async findAll(): Promise<DtoUserFindAllResponseBody> {
     const users = await this.userRepository.find();
-    return {
-      succuss: true,
-      status: 200,
-      message: 'Users retrieved successfully',
-      data: users,
-    };
+    return this.responseService.findAll('users', users);
   }
   async findById(
     id: DtoUserFindByIdRequestParam,
@@ -61,12 +60,7 @@ export class UsersService implements IUsersService {
     if (!user) {
       throw new NotFoundException('User not found.');
     }
-    return {
-      succuss: true,
-      message: '',
-      status: 201,
-      data: user,
-    };
+    return this.responseService.findOne('user', id, user);
   }
   async updateById(
     id: DtoUserUpdateByIdRequestParam,
@@ -86,17 +80,21 @@ export class UsersService implements IUsersService {
         );
       }
     }
+
     const updatedData = {
       ...dto,
       updated_at: new Date(),
     };
 
+    if (dto.role_id) {
+      const { data } = await this.roleService.findById(dto.role_id);
+      if (!data.id) {
+        throw new NotFoundException(`Role is not found`);
+      }
+    }
     await this.userRepository.update(id, updatedData);
-    return {
-      succuss: true,
-      message: '',
-      status: 201,
-    };
+    const res = await this.userRepository.findOneBy({ id });
+    return this.responseService.updateOne('user', id, res);
   }
   async deleteById(
     id: DtoUserDeleteByIdRequestParam,
@@ -105,10 +103,6 @@ export class UsersService implements IUsersService {
     if (result.affected === 0) {
       throw new NotFoundException('User with this ID not found.');
     }
-    return {
-      succuss: true,
-      message: '',
-      status: 201,
-    };
+    return this.responseService.deleteOne('user', id);
   }
 }

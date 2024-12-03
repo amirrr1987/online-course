@@ -10,4 +10,10 @@ export class Course extends CoreEntity {
 
   @Column({ unique: true, type: 'varchar', length: 255 })
   value: string;
+
+  @ManyToMany(() => UserEntity, (user) => user.courses)
+  users: UserEntity[];
+
+  @ManyToMany(() => CategoryEntity, (category) => category.courses)
+  categories: CategoryEntity[];
 }

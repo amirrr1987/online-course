@@ -8,6 +8,8 @@ import {
   JoinTable,
   OneToOne,
   JoinColumn,
+  Check,
+  RelationId,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -22,9 +24,10 @@ export class User extends CoreEntity {
   mobile: string;
 
   @Column({ type: 'int', nullable: true })
+  @Check('age >= 18')
   age: number;
 
-  @ManyToMany(() => CourseEntity)
+  @ManyToMany(() => CourseEntity, { onDelete: 'CASCADE', eager: true })
   @JoinTable({
     name: 'users_courses',
     joinColumn: {
@@ -39,6 +42,14 @@ export class User extends CoreEntity {
   courses: CourseEntity[];
 
   @OneToOne(() => RoleEntity, (role) => role.id)
-  @JoinColumn()
+  @JoinColumn({
+    name: 'role_id',
+  })
   role: RoleEntity;
+
+  @RelationId((user: User) => user.courses)
+  courses_id: number[];
+
+  @RelationId((user: User) => user.role)
+  role_id: number;
 }
