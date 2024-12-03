@@ -11,8 +11,8 @@ import {
 import { UsersService } from './users.service';
 import { IUsersController } from './interfaces/users.controller.interface';
 import {
-  UserCreateOneRequestDto,
-  UserCreateOneResponseDto,
+  UserCreateRequestDto,
+  UserCreateResponseDto,
   UserFindAllResponseDto,
   UserFindByIdRequestIdParamDto,
   UserFindByIdResponseDto,
@@ -28,9 +28,7 @@ export class UsersController implements IUsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(
-    @Body() dto: UserCreateOneRequestDto,
-  ): Promise<UserCreateOneResponseDto> {
+  create(@Body() dto: UserCreateRequestDto): Promise<UserCreateResponseDto> {
     return this.usersService.create(dto);
   }
 

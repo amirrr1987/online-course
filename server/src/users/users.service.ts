@@ -5,14 +5,11 @@ import {
 } from '@nestjs/common';
 
 import { User as UserEntity } from './entities/user.entity';
-import { Role as RoleEntity } from 'src/roles/entities/role.entity';
-import { Course as CourseEntity } from 'src/courses/entities/course.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUsersService } from './interfaces/users.service.interface';
 import {
-  UserCreateOneRequestDto,
-  UserCreateOneResponseDto,
+  UserCreateRequestDto,
+  UserCreateResponseDto,
   UserFindAllResponseDto,
   UserFindByIdRequestIdParamDto,
   UserFindByIdResponseDto,
@@ -24,18 +21,17 @@ import {
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
 import { RolesService } from 'src/roles/roles.service';
+import { UserRepository } from './users.repository';
 
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    private readonly userRepository: UserRepository,
     private readonly roleService: RolesService,
     private readonly responseService: ResponseService,
   ) {}
-  async create(
-    dto: UserCreateOneRequestDto,
-  ): Promise<UserCreateOneResponseDto> {
+  async create(dto: UserCreateRequestDto): Promise<UserCreateResponseDto> {
     const existingUser = await this.userRepository.findOneBy({
       mobile: dto.mobile,
     });

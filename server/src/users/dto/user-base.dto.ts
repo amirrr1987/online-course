@@ -3,10 +3,9 @@ import {
   IsDate,
   IsNumber,
   IsString,
-  Min,
   MinLength,
 } from 'class-validator';
-import { DtoCourseBase } from 'src/courses/dto/course-base.dto';
+import { CourseBaseDto } from 'src/courses/dto/course-base.dto';
 
 export class UserBaseDto {
   @IsNumber()
@@ -23,7 +22,7 @@ export class UserBaseDto {
   age: number;
 
   @IsArray()
-  courses: DtoCourseBase[];
+  courses: CourseBaseDto[];
 
   @IsNumber()
   role_id: number;
