@@ -1,5 +1,5 @@
 import { ResponseData } from 'src/response/response.service.interface';
-import { DtoUserBase } from './user-base.dto';
+import { UserBaseDto } from './user-base.dto';
 
-export type DtoUserDeleteByIdRequestParam = DtoUserBase['id'];
-export class DtoUserDeleteByIdResponseBody extends ResponseData {}
+export type UserDeleteByIdRequestIdParamDto = UserBaseDto['id'];
+export class UserDeleteByIdResponseDto extends ResponseData {}

@@ -3,11 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import {
-  DtoUserUpdateByIdRequestBody,
-  DtoUserUpdateByIdRequestParam,
-  DtoUserUpdateByIdResponseBody,
-} from './dto/user-update-by-id.dto';
+
 import { User as UserEntity } from './entities/user.entity';
 import { Role as RoleEntity } from 'src/roles/entities/role.entity';
 import { Course as CourseEntity } from 'src/courses/entities/course.entity';
@@ -15,13 +11,16 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUsersService } from './interfaces/users.service.interface';
 import {
-  DtoUserCreateOneRequestBody,
-  DtoUserCreateOneResponseBody,
-  DtoUserFindAllResponseBody,
-  DtoUserFindByIdRequestParam,
-  DtoUserFindByIdResponseBody,
-  DtoUserDeleteByIdRequestParam,
-  DtoUserDeleteByIdResponseBody,
+  UserCreateOneRequestDto,
+  UserCreateOneResponseDto,
+  UserFindAllResponseDto,
+  UserFindByIdRequestIdParamDto,
+  UserFindByIdResponseDto,
+  UserUpdateByIdRequestIdParamDto,
+  UserUpdateByIdRequestDto,
+  UserUpdateByIdResponseDto,
+  UserDeleteByIdRequestIdParamDto,
+  UserDeleteByIdResponseDto,
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
 import { RolesService } from 'src/roles/roles.service';
@@ -35,8 +34,8 @@ export class UsersService implements IUsersService {
     private readonly responseService: ResponseService,
   ) {}
   async create(
-    dto: DtoUserCreateOneRequestBody,
-  ): Promise<DtoUserCreateOneResponseBody> {
+    dto: UserCreateOneRequestDto,
+  ): Promise<UserCreateOneResponseDto> {
     const existingUser = await this.userRepository.findOneBy({
       mobile: dto.mobile,
     });
@@ -49,13 +48,13 @@ export class UsersService implements IUsersService {
     await this.userRepository.save(user);
     return this.responseService.createOne('user', user.id);
   }
-  async findAll(): Promise<DtoUserFindAllResponseBody> {
+  async findAll(): Promise<UserFindAllResponseDto> {
     const users = await this.userRepository.find();
     return this.responseService.findAll('users', users);
   }
   async findById(
-    id: DtoUserFindByIdRequestParam,
-  ): Promise<DtoUserFindByIdResponseBody> {
+    id: UserFindByIdRequestIdParamDto,
+  ): Promise<UserFindByIdResponseDto> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new NotFoundException('User not found.');
@@ -63,9 +62,9 @@ export class UsersService implements IUsersService {
     return this.responseService.findOne('user', id, user);
   }
   async updateById(
-    id: DtoUserUpdateByIdRequestParam,
-    dto: DtoUserUpdateByIdRequestBody,
-  ): Promise<DtoUserUpdateByIdResponseBody> {
+    id: UserUpdateByIdRequestIdParamDto,
+    dto: UserUpdateByIdRequestDto,
+  ): Promise<UserUpdateByIdResponseDto> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new NotFoundException('User not found.');
@@ -97,8 +96,8 @@ export class UsersService implements IUsersService {
     return this.responseService.updateOne('user', id, res);
   }
   async deleteById(
-    id: DtoUserDeleteByIdRequestParam,
-  ): Promise<DtoUserDeleteByIdResponseBody> {
+    id: UserDeleteByIdRequestIdParamDto,
+  ): Promise<UserDeleteByIdResponseDto> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('User with this ID not found.');

@@ -1,6 +1,8 @@
 import { PartialType } from '@nestjs/swagger';
-import { DtoUserBase } from './user-base.dto';
+import { UserBaseDto } from './user-base.dto';
 import { ResponseData } from 'src/response/response.service.interface';
-export type DtoUserUpdateByIdRequestParam = DtoUserBase['id'];
-export class DtoUserUpdateByIdRequestBody extends PartialType(DtoUserBase) {}
-export class DtoUserUpdateByIdResponseBody extends ResponseData {}
+export type UserUpdateByIdRequestIdParamDto = UserBaseDto['id'];
+
+export class UserUpdateByIdRequestDto extends PartialType(UserBaseDto) {}
+
+export class UserUpdateByIdResponseDto extends ResponseData {}

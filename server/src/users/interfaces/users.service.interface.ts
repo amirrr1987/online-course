@@ -1,29 +1,25 @@
 import {
-  DtoUserCreateOneRequestBody,
-  DtoUserCreateOneResponseBody,
-  DtoUserFindAllResponseBody,
-  DtoUserFindByIdRequestParam,
-  DtoUserFindByIdResponseBody,
-  DtoUserUpdateByIdRequestParam,
-  DtoUserUpdateByIdRequestBody,
-  DtoUserUpdateByIdResponseBody,
-  DtoUserDeleteByIdRequestParam,
-  DtoUserDeleteByIdResponseBody,
+  UserCreateOneRequestDto,
+  UserCreateOneResponseDto,
+  UserFindAllResponseDto,
+  UserFindByIdRequestIdParamDto,
+  UserFindByIdResponseDto,
+  UserUpdateByIdRequestIdParamDto,
+  UserUpdateByIdRequestDto,
+  UserUpdateByIdResponseDto,
+  UserDeleteByIdRequestIdParamDto,
+  UserDeleteByIdResponseDto,
 } from '../dto';
 
 export interface IUsersService {
-  create(
-    dto: DtoUserCreateOneRequestBody,
-  ): Promise<DtoUserCreateOneResponseBody>;
-  findAll(): Promise<DtoUserFindAllResponseBody>;
-  findById(
-    id: DtoUserFindByIdRequestParam,
-  ): Promise<DtoUserFindByIdResponseBody>;
+  create(dto: UserCreateOneRequestDto): Promise<UserCreateOneResponseDto>;
+  findAll(): Promise<UserFindAllResponseDto>;
+  findById(id: UserFindByIdRequestIdParamDto): Promise<UserFindByIdResponseDto>;
   updateById(
-    id: DtoUserUpdateByIdRequestParam,
-    dto: DtoUserUpdateByIdRequestBody,
-  ): Promise<DtoUserUpdateByIdResponseBody>;
+    id: UserUpdateByIdRequestIdParamDto,
+    dto: UserUpdateByIdRequestDto,
+  ): Promise<UserUpdateByIdResponseDto>;
   deleteById(
-    id: DtoUserDeleteByIdRequestParam,
-  ): Promise<DtoUserDeleteByIdResponseBody>;
+    id: UserDeleteByIdRequestIdParamDto,
+  ): Promise<UserDeleteByIdResponseDto>;
 }

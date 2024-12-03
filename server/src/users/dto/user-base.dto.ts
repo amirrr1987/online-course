@@ -1,11 +1,19 @@
-import { IsArray, IsDate, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsDate,
+  IsNumber,
+  IsString,
+  Min,
+  MinLength,
+} from 'class-validator';
 import { DtoCourseBase } from 'src/courses/dto/course-base.dto';
 
-export class DtoUserBase {
+export class UserBaseDto {
   @IsNumber()
   id: number;
 
   @IsString()
+  @MinLength(2)
   label: string;
 
   @IsString()
