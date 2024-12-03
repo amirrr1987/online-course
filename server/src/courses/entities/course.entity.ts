@@ -1,6 +1,6 @@
 import { Category as CategoryEntity } from 'src/categories/entities/category.entity';
-import { CoreEntity } from 'src/core.entity';
 import { User as UserEntity } from 'src/users/entities/user.entity';
+import { CoreEntity } from 'src/core.entity';
 import { Entity, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'courses' })
