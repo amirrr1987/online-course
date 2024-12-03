@@ -1,8 +1,8 @@
-import { DtoCourseBase } from './course-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { CourseBaseDto } from './course-base.dto';
+import { OmitType } from '@nestjs/mapped-types';
 
-export type DtoCourseDeleteByIdRequestParam = DtoCourseBase['id'];
-export class DtoCourseDeleteByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-}
+export type CourseDeleteByIdRequestIdParamDto = CourseBaseDto['id'];
+export class CourseDeleteByIdResponseDto extends OmitType(ResponseData, [
+  'data',
+]) {}

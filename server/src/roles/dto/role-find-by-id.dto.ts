@@ -1,9 +1,7 @@
-import { DtoRoleBase } from './role-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { RoleBaseDto } from './role-base.dto';
 
-export type DtoRoleFindByIdRequestParam = DtoRoleBase['id'];
-export class DtoRoleFindByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-  data: DtoRoleBase;
+export type RoleFindByIdRequestIdParamDto = RoleBaseDto['id'];
+export class RoleFindByIdResponseDto extends ResponseData {
+  data?: RoleBaseDto[];
 }

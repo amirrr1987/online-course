@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
 
-export class DtoRoleBase {
+export class RoleBaseDto {
   @IsNumber()
   id: number;
 

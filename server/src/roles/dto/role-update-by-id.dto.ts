@@ -1,12 +1,10 @@
 import { IntersectionType, OmitType, PartialType } from '@nestjs/mapped-types';
-import { DtoRoleBase } from './role-base.dto';
+import { RoleBaseDto } from './role-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
 
-export type DtoRoleUpdateByIdRequestParam = DtoRoleBase['id'];
-export class DtoRoleUpdateByIdRequestBody extends IntersectionType(
-  PartialType(OmitType(DtoRoleBase, ['id', 'created_at', 'updated_at'])),
+export type RoleUpdateByIdRequestIdParamDto = RoleBaseDto['id'];
+
+export class RoleUpdateByIdRequestDto extends IntersectionType(
+  PartialType(OmitType(RoleBaseDto, ['id', 'created_at', 'updated_at'])),
 ) {}
-export class DtoRoleUpdateByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-}
+export class RoleUpdateByIdResponseDto extends ResponseData {}

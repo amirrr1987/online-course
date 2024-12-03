@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
 
-export class DtoCourseBase {
+export class CourseBaseDto {
   @IsNumber()
   id: number;
 

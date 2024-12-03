@@ -1,9 +1,6 @@
-import { Course } from '../entities/course.entity';
-import { DtoCourseBase } from './course-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { CourseBaseDto } from './course-base.dto';
 
-export class DtoCourseFindAllResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-  data: Array<Course>;
+export class CourseFindAllResponseDto extends ResponseData {
+  data: CourseBaseDto[];
 }

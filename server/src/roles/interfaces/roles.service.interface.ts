@@ -1,29 +1,25 @@
 import {
-  DtoRoleCreateOneRequestBody,
-  DtoRoleCreateOneResponseBody,
-  DtoRoleFindAllResponseBody,
-  DtoRoleFindByIdRequestParam,
-  DtoRoleFindByIdResponseBody,
-  DtoRoleUpdateByIdRequestParam,
-  DtoRoleUpdateByIdRequestBody,
-  DtoRoleUpdateByIdResponseBody,
-  DtoRoleRemoveByIdRequestParam,
-  DtoRoleRemoveByIdResponseBody,
+  RoleCreateRequestDto,
+  RoleCreateResponseDto,
+  RoleFindAllResponseDto,
+  RoleFindByIdRequestIdParamDto,
+  RoleFindByIdResponseDto,
+  RoleUpdateByIdRequestIdParamDto,
+  RoleUpdateByIdRequestDto,
+  RoleUpdateByIdResponseDto,
+  RoleRemoveByIdRequestIdParamDto,
+  RoleRemoveByIdResponseDto,
 } from '../dto';
 
 export interface IRolesService {
-  create(
-    dto: DtoRoleCreateOneRequestBody,
-  ): Promise<DtoRoleCreateOneResponseBody>;
-  findAll(): Promise<DtoRoleFindAllResponseBody>;
-  findById(
-    id: DtoRoleFindByIdRequestParam,
-  ): Promise<DtoRoleFindByIdResponseBody>;
+  create(dto: RoleCreateRequestDto): Promise<RoleCreateResponseDto>;
+  findAll(): Promise<RoleFindAllResponseDto>;
+  findById(id: RoleFindByIdRequestIdParamDto): Promise<RoleFindByIdResponseDto>;
   updateById(
-    id: DtoRoleUpdateByIdRequestParam,
-    dto: DtoRoleUpdateByIdRequestBody,
-  ): Promise<DtoRoleUpdateByIdResponseBody>;
+    id: RoleUpdateByIdRequestIdParamDto,
+    dto: RoleUpdateByIdRequestDto,
+  ): Promise<RoleUpdateByIdResponseDto>;
   deleteById(
-    id: DtoRoleRemoveByIdRequestParam,
-  ): Promise<DtoRoleRemoveByIdResponseBody>;
+    id: RoleRemoveByIdRequestIdParamDto,
+  ): Promise<RoleRemoveByIdResponseDto>;
 }

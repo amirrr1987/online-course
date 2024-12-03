@@ -1,29 +1,25 @@
 import {
-  DtoCourseCreateOneRequestBody,
-  DtoCourseCreateOneResponseBody,
-  DtoCourseFindAllResponseBody,
-  DtoCourseFindByIdRequestParam,
-  DtoCourseFindByIdResponseBody,
-  DtoCourseUpdateByIdRequestParam,
-  DtoCourseUpdateByIdRequestBody,
-  DtoCourseUpdateByIdResponseBody,
-  DtoCourseDeleteByIdRequestParam,
-  DtoCourseDeleteByIdResponseBody,
+  CourseCreateRequestDto,
+  CourseCreateResponseDto,
+  CourseFindAllResponseDto,
+  CourseFindByIdRequestIdParamDto,
+  CourseFindByIdResponseDto,
+  CourseUpdateByIdRequestDto,
+  CourseUpdateByIdResponseDto,
+  CourseDeleteByIdRequestIdParamDto,
+  CourseDeleteByIdResponseDto,
 } from '../dto';
 
 export interface ICoursesService {
-  create(
-    dto: DtoCourseCreateOneRequestBody,
-  ): Promise<DtoCourseCreateOneResponseBody>;
-  findAll(): Promise<DtoCourseFindAllResponseBody>;
+  create(dto: CourseCreateRequestDto): Promise<CourseCreateResponseDto>;
+  findAll(): Promise<CourseFindAllResponseDto>;
   findById(
-    id: DtoCourseFindByIdRequestParam,
-  ): Promise<DtoCourseFindByIdResponseBody>;
+    id: CourseFindByIdRequestIdParamDto,
+  ): Promise<CourseFindByIdResponseDto>;
   updateById(
-    id: DtoCourseUpdateByIdRequestParam,
-    dto: DtoCourseUpdateByIdRequestBody,
-  ): Promise<DtoCourseUpdateByIdResponseBody>;
+    dto: CourseUpdateByIdRequestDto,
+  ): Promise<CourseUpdateByIdResponseDto>;
   deleteById(
-    id: DtoCourseDeleteByIdRequestParam,
-  ): Promise<DtoCourseDeleteByIdResponseBody>;
+    id: CourseDeleteByIdRequestIdParamDto,
+  ): Promise<CourseDeleteByIdResponseDto>;
 }

@@ -1,36 +1,31 @@
+import { ICoursesService } from './interfaces/courses.service.interface';
+import {
+  CourseCreateRequestDto,
+  CourseCreateResponseDto,
+  CourseFindAllResponseDto,
+  CourseFindByIdRequestIdParamDto,
+  CourseFindByIdResponseDto,
+  CourseUpdateByIdRequestIdParamDto,
+  CourseUpdateByIdRequestDto,
+  CourseUpdateByIdResponseDto,
+  CourseDeleteByIdRequestIdParamDto,
+  CourseDeleteByIdResponseDto,
+} from './dto';
+import { CoursesRepository } from './courses.repository';
+import { ResponseService } from 'src/response/response.service';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ICoursesService } from './interfaces/courses.service.interface';
-import {
-  DtoCourseCreateOneRequestBody,
-  DtoCourseCreateOneResponseBody,
-  DtoCourseFindAllResponseBody,
-  DtoCourseFindByIdRequestParam,
-  DtoCourseFindByIdResponseBody,
-  DtoCourseUpdateByIdRequestParam,
-  DtoCourseUpdateByIdRequestBody,
-  DtoCourseUpdateByIdResponseBody,
-  DtoCourseDeleteByIdRequestParam,
-  DtoCourseDeleteByIdResponseBody,
-} from './dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Course as CourseEntity } from './entities/course.entity';
-import { ResponseService } from 'src/response/response.service';
 
 @Injectable()
 export class CoursesService implements ICoursesService {
   constructor(
-    @InjectRepository(CourseEntity)
-    private readonly courseRepository: Repository<CourseEntity>,
+    private readonly courseRepository: CoursesRepository,
     private readonly responseService: ResponseService,
   ) {}
-  async create(
-    dto: DtoCourseCreateOneRequestBody,
-  ): Promise<DtoCourseCreateOneResponseBody> {
+  async create(dto: CourseCreateRequestDto): Promise<CourseCreateResponseDto> {
     const existingCourse = await this.courseRepository.findOneBy({
       value: dto.value,
     });
@@ -43,7 +38,7 @@ export class CoursesService implements ICoursesService {
     await this.courseRepository.save(course);
     return this.responseService.createOne('user', course.id);
   }
-  async findAll(): Promise<DtoCourseFindAllResponseBody> {
+  async findAll(): Promise<CourseFindAllResponseDto> {
     const courses = await this.courseRepository.find();
     return {
       succuss: true,
@@ -53,8 +48,8 @@ export class CoursesService implements ICoursesService {
     };
   }
   async findById(
-    id: DtoCourseFindByIdRequestParam,
-  ): Promise<DtoCourseFindByIdResponseBody> {
+    id: CourseFindByIdRequestIdParamDto,
+  ): Promise<CourseFindByIdResponseDto> {
     const course = await this.courseRepository.findOneBy({ id });
     if (!course) {
       throw new NotFoundException('Course not found.');
@@ -67,10 +62,9 @@ export class CoursesService implements ICoursesService {
     };
   }
   async updateById(
-    id: DtoCourseUpdateByIdRequestParam,
-    dto: DtoCourseUpdateByIdRequestBody,
-  ): Promise<DtoCourseUpdateByIdResponseBody> {
-    const course = await this.courseRepository.findOneBy({ id });
+    dto: CourseUpdateByIdRequestDto,
+  ): Promise<CourseUpdateByIdResponseDto> {
+    const course = await this.courseRepository.findOneBy({ id: dto.id });
     if (!course.id) {
       throw new NotFoundException('Course not found.');
     }
@@ -78,7 +72,7 @@ export class CoursesService implements ICoursesService {
       const duplicateCourse = await this.courseRepository.findOneBy({
         value: dto.value,
       });
-      if (duplicateCourse && duplicateCourse.id !== id) {
+      if (duplicateCourse && duplicateCourse.id !== dto.id) {
         throw new ConflictException(
           'Course with the provided value already exists.',
         );
@@ -89,7 +83,7 @@ export class CoursesService implements ICoursesService {
       updated_at: new Date(),
     };
 
-    await this.courseRepository.update(id, updatedData);
+    await this.courseRepository.update(dto.id, updatedData);
     return {
       succuss: true,
       message: '',
@@ -97,8 +91,8 @@ export class CoursesService implements ICoursesService {
     };
   }
   async deleteById(
-    id: DtoCourseDeleteByIdRequestParam,
-  ): Promise<DtoCourseDeleteByIdResponseBody> {
+    id: CourseDeleteByIdRequestIdParamDto,
+  ): Promise<CourseDeleteByIdResponseDto> {
     const result = await this.courseRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('Course with this ID not found.');

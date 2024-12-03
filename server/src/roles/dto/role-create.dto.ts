@@ -1,13 +1,10 @@
 import { OmitType } from '@nestjs/mapped-types';
-import { DtoRoleBase } from './role-base.dto';
+import { RoleBaseDto } from './role-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
 
-export class DtoRoleCreateOneRequestBody extends OmitType(DtoRoleBase, [
+export class RoleCreateRequestDto extends OmitType(RoleBaseDto, [
   'id',
   'created_at',
   'updated_at',
 ]) {}
-export class DtoRoleCreateOneResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-}
+export class RoleCreateResponseDto extends ResponseData {}

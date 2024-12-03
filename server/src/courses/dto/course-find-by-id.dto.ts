@@ -1,10 +1,7 @@
-import { Course } from '../entities/course.entity';
-import { DtoCourseBase } from './course-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { CourseBaseDto } from './course-base.dto';
 
-export type DtoCourseFindByIdRequestParam = DtoCourseBase['id'];
-export class DtoCourseFindByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-  data: Course;
+export type CourseFindByIdRequestIdParamDto = CourseBaseDto['id'];
+export class CourseFindByIdResponseDto extends ResponseData {
+  data?: CourseBaseDto;
 }
