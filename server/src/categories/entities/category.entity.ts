@@ -11,6 +11,16 @@ export class Category extends CoreEntity {
   value: string;
 
   @ManyToMany(() => CourseEntity)
-  @JoinTable()
+  @JoinTable({
+    name: 'categories_courses',
+    joinColumn: {
+      name: 'category_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'course_id',
+      referencedColumnName: 'id',
+    },
+  })
   courses: CourseEntity[];
 }
