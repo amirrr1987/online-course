@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 
-import { Category as CategoryEntity } from 'src/categories/entities/category.entity';
-import { Course as CourseEntity } from 'src/courses/entities/course.entity';
-import { Role as RoleEntity } from 'src/roles/entities/role.entity';
-import { User as UserEntity } from 'src/users/entities/user.entity';
+import { Category as CategoryEntity } from '../categories/entities/category.entity';
+import { Course as CourseEntity } from '../courses/entities/course.entity';
+import { Role as RoleEntity } from '../roles/entities/role.entity';
+import { User as UserEntity } from '../users/entities/user.entity';
 
 dotenv.config();
 @Injectable()

@@ -1,6 +1,6 @@
 import { IntersectionType, OmitType, PartialType } from '@nestjs/mapped-types';
 import { RoleBaseDto } from './role-base.dto';
-import { ResponseData } from 'src/response/response.service.interface';
+import { ResponseData } from '../../response/response.service.interface';
 
 export type RoleUpdateByIdRequestIdParamDto = RoleBaseDto['id'];
 

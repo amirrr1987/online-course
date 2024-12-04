@@ -1,5 +1,5 @@
-import { CoreEntity } from 'src/core.entity';
-import { Course as CourseEntity } from 'src/courses/entities/course.entity';
+import { CoreEntity } from '../../core.entity';
+import { Course as CourseEntity } from '../../courses/entities/course.entity';
 import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity({ name: 'categories' })

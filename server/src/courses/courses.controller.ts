@@ -15,7 +15,6 @@ import {
   CourseFindAllResponseDto,
   CourseFindByIdRequestIdParamDto,
   CourseFindByIdResponseDto,
-  CourseUpdateByIdRequestIdParamDto,
   CourseUpdateByIdRequestDto,
   CourseUpdateByIdResponseDto,
   CourseDeleteByIdRequestIdParamDto,

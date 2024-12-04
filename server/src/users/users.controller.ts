@@ -22,7 +22,7 @@ import {
   UserDeleteByIdRequestIdParamDto,
   UserDeleteByIdResponseDto,
 } from './dto';
-import { ResponseService } from 'src/response/response.service';
+import { ResponseService } from '../response/response.service';
 
 @Controller('users')
 export class UsersController implements IUsersController {

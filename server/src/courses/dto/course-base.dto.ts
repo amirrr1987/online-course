@@ -1,7 +1,8 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsInt, IsPositive, IsString } from 'class-validator';
 
 export class CourseBaseDto {
-  @IsNumber()
+  @IsInt()
+  @IsPositive()
   id: number;
 
   @IsString()
@@ -9,6 +10,10 @@ export class CourseBaseDto {
 
   @IsString()
   value: string;
+
+  @IsInt()
+  @IsPositive()
+  category_id: number;
 
   @IsDate()
   created_at: Date;

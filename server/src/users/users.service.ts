@@ -1,6 +1,5 @@
 import {
   ConflictException,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -18,7 +17,7 @@ import {
   UserDeleteByIdRequestIdParamDto,
   UserDeleteByIdResponseDto,
 } from './dto';
-import { ResponseService } from 'src/response/response.service';
+import { ResponseService } from '../response/response.service';
 import { User as UserEntity } from './entities/user.entity';
 import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';

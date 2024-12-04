@@ -1,6 +1,6 @@
-import { Category as CategoryEntity } from 'src/categories/entities/category.entity';
-import { User as UserEntity } from 'src/users/entities/user.entity';
-import { CoreEntity } from 'src/core.entity';
+import { Category as CategoryEntity } from '../../categories/entities/category.entity';
+import { User as UserEntity } from '../../users/entities/user.entity';
+import { CoreEntity } from '../../core.entity';
 import { Entity, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'courses' })
@@ -11,9 +11,9 @@ export class Course extends CoreEntity {
   @Column({ unique: true, type: 'varchar', length: 255 })
   value: string;
 
-  @ManyToMany(() => UserEntity, (user) => user.courses)
+  @ManyToMany(() => UserEntity, (user) => user.id)
   users: UserEntity[];
 
-  @ManyToMany(() => CategoryEntity, (category) => category.courses)
+  @ManyToMany(() => CategoryEntity, (category) => category.id)
   categories: CategoryEntity[];
 }

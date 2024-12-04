@@ -1,7 +1,8 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsInt, IsNumber, IsPositive, IsString } from 'class-validator';
 
 export class RoleBaseDto {
-  @IsNumber()
+  @IsInt()
+  @IsPositive()
   id: number;
 
   @IsString()

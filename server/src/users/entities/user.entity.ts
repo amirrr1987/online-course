@@ -1,6 +1,6 @@
-import { CoreEntity } from 'src/core.entity';
-import { Course as CourseEntity } from 'src/courses/entities/course.entity';
-import { Role as RoleEntity } from 'src/roles/entities/role.entity';
+import { CoreEntity } from '../../core.entity';
+import { Course as CourseEntity } from '../../courses/entities/course.entity';
+import { Role as RoleEntity } from '../../roles/entities/role.entity';
 import {
   Entity,
   Column,

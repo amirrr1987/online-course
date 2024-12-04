@@ -1,4 +1,4 @@
-import { ResponseData } from 'src/response/response.service.interface';
+import { ResponseData } from '../../response/response.service.interface';
 import { CourseBaseDto } from './course-base.dto';
 
 export type CourseFindByIdRequestIdParamDto = CourseBaseDto['id'];

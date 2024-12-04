@@ -10,18 +10,21 @@ import {
   CourseDeleteByIdRequestIdParamDto,
   CourseDeleteByIdResponseDto,
 } from './dto';
-import { CoursesRepository } from './courses.repository';
-import { ResponseService } from 'src/response/response.service';
+import { Course as CourseEntity } from './entities/course.entity';
+import { ResponseService } from '../response/response.service';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { DeepPartial, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CoursesService implements ICoursesService {
   constructor(
-    private readonly courseRepository: CoursesRepository,
+    @InjectRepository(CourseEntity)
+    private readonly courseRepository: Repository<CourseEntity>,
     private readonly responseService: ResponseService,
   ) {}
   async create(dto: CourseCreateRequestDto): Promise<CourseCreateResponseDto> {
@@ -33,7 +36,12 @@ export class CoursesService implements ICoursesService {
         'Course with the provided value already exists.',
       );
     }
-    const course = this.courseRepository.create(dto);
+    const updatedData: DeepPartial<CourseEntity> = {
+      ...dto,
+      // categories: { id: dto.category_id },
+      updated_at: new Date(),
+    };
+    const course = this.courseRepository.create(updatedData);
     await this.courseRepository.save(course);
     return this.responseService.createOne('user', course.id);
   }

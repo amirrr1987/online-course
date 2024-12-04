@@ -1,14 +1,16 @@
 import {
   IsArray,
   IsDate,
-  IsNumber,
+  IsInt,
   IsOptional,
+  IsPositive,
   IsString,
 } from 'class-validator';
-import { CourseBaseDto } from 'src/courses/dto/course-base.dto';
+import { CourseBaseDto } from '../../courses/dto/course-base.dto';
 
 export class UserBaseDto {
-  @IsNumber()
+  @IsInt()
+  @IsPositive()
   id: number;
 
   @IsString()
@@ -20,14 +22,16 @@ export class UserBaseDto {
   @IsString()
   mobile: string;
 
-  @IsNumber()
+  @IsInt()
+  @IsPositive()
   age: number;
 
   @IsArray()
   @IsOptional()
   courses: CourseBaseDto[];
 
-  @IsNumber()
+  @IsInt()
+  @IsPositive()
   role_id: number;
 
   @IsDate()
