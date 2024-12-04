@@ -5,16 +5,16 @@ import {
 } from '@nestjs/common';
 import { ICategoriesService } from './interfaces/categories.service.interface';
 import {
-  DtoCategoryCreateOneRequestBody,
-  DtoCategoryCreateOneResponseBody,
-  DtoCategoryFindAllResponseBody,
-  DtoCategoryFindByIdRequestParam,
-  DtoCategoryFindByIdResponseBody,
-  DtoCategoryUpdateByIdRequestParam,
-  DtoCategoryUpdateByIdRequestBody,
-  DtoCategoryUpdateByIdResponseBody,
-  DtoCategoryDeleteByIdRequestParam,
-  DtoCategoryDeleteByIdResponseBody,
+  CategoryCreateRequestDto,
+  CategoryCreateResponseDto,
+  CategoryFindAllResponseDto,
+  CategoryFindByIdRequestIdParamDto,
+  CategoryFindByIdResponseDto,
+  CategoryUpdateByIdRequestIdParamDto,
+  CategoryUpdateByIdRequestDto,
+  CategoryUpdateByIdResponseDto,
+  CategoryDeleteByIdRequestIdParamDto,
+  CategoryDeleteByIdResponseDto,
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
 import { CategoriesRepository } from './categories.repository';
@@ -26,8 +26,8 @@ export class CategoriesService implements ICategoriesService {
     private readonly responseService: ResponseService,
   ) {}
   async create(
-    dto: DtoCategoryCreateOneRequestBody,
-  ): Promise<DtoCategoryCreateOneResponseBody> {
+    dto: CategoryCreateRequestDto,
+  ): Promise<CategoryCreateResponseDto> {
     const existingCategory = await this.categoryRepository.findOneBy({
       value: dto.value,
     });
@@ -40,33 +40,33 @@ export class CategoriesService implements ICategoriesService {
     await this.categoryRepository.save(category);
     return this.responseService.createOne('user', category.id);
   }
-  async findAll(): Promise<DtoCategoryFindAllResponseBody> {
+  async findAll(): Promise<CategoryFindAllResponseDto> {
     const categories = await this.categoryRepository.find();
     return {
-      succuss: true,
+      success: true,
       status: 200,
       message: 'Courses retrieved successfully',
       data: categories,
     };
   }
   async findById(
-    id: DtoCategoryFindByIdRequestParam,
-  ): Promise<DtoCategoryFindByIdResponseBody> {
+    id: CategoryFindByIdRequestIdParamDto,
+  ): Promise<CategoryFindByIdResponseDto> {
     const category = await this.categoryRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException('Category not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
       data: category,
     };
   }
   async updateById(
-    id: DtoCategoryUpdateByIdRequestParam,
-    dto: DtoCategoryUpdateByIdRequestBody,
-  ): Promise<DtoCategoryUpdateByIdResponseBody> {
+    id: CategoryUpdateByIdRequestIdParamDto,
+    dto: CategoryUpdateByIdRequestDto,
+  ): Promise<CategoryUpdateByIdResponseDto> {
     const category = await this.categoryRepository.findOneBy({ id });
     if (!category.id) {
       throw new NotFoundException('Category not found.');
@@ -88,20 +88,20 @@ export class CategoriesService implements ICategoriesService {
 
     await this.categoryRepository.update(id, updatedData);
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };
   }
   async deleteById(
-    id: DtoCategoryDeleteByIdRequestParam,
-  ): Promise<DtoCategoryDeleteByIdResponseBody> {
+    id: CategoryDeleteByIdRequestIdParamDto,
+  ): Promise<CategoryDeleteByIdResponseDto> {
     const result = await this.categoryRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException('Category with this ID not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };

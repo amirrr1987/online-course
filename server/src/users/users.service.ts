@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -18,14 +19,14 @@ import {
   UserDeleteByIdResponseDto,
 } from './dto';
 import { ResponseService } from 'src/response/response.service';
-import { RolesService } from 'src/roles/roles.service';
-import { UserRepository } from './users.repository';
-
+import { User as UserEntity } from './entities/user.entity';
+import { DeepPartial, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
-    private readonly userRepository: UserRepository,
-    private readonly roleService: RolesService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
     private readonly responseService: ResponseService,
   ) {}
   async create(dto: UserCreateRequestDto): Promise<UserCreateResponseDto> {
@@ -37,7 +38,12 @@ export class UsersService implements IUsersService {
         'User with the provided value already exists.',
       );
     }
-    const user = this.userRepository.create(dto);
+    const updatedData: DeepPartial<UserEntity> = {
+      ...dto,
+      role: { id: dto.role_id },
+      updated_at: new Date(),
+    };
+    const user = this.userRepository.create(updatedData);
     await this.userRepository.save(user);
     return this.responseService.createOne('user', user.id);
   }
@@ -59,34 +65,23 @@ export class UsersService implements IUsersService {
     dto: UserUpdateByIdRequestDto,
   ): Promise<UserUpdateByIdResponseDto> {
     const user = await this.userRepository.findOneBy({ id });
-    if (!user) {
+    if (!user.id) {
       throw new NotFoundException('User not found.');
     }
-    if (dto.mobile) {
-      const duplicateUser = await this.userRepository.findOneBy({
-        mobile: dto.mobile,
-      });
-      if (duplicateUser && duplicateUser.id !== id) {
-        throw new ConflictException(
-          'User with the provided value already exists.',
-        );
-      }
-    }
-
-    const updatedData = {
+    let updatedData: DeepPartial<UserEntity> = {
       ...dto,
+
       updated_at: new Date(),
     };
-
     if (dto.role_id) {
-      const { data } = await this.roleService.findById(dto.role_id);
-      if (!data.id) {
-        throw new NotFoundException(`Role is not found`);
-      }
+      updatedData = {
+        ...dto,
+        role: { id: dto.role_id },
+        updated_at: new Date(),
+      };
     }
     await this.userRepository.update(id, updatedData);
-    const res = await this.userRepository.findOneBy({ id });
-    return this.responseService.updateOne('user', id, res);
+    return this.responseService.updateOne('user', id, {});
   }
   async deleteById(
     id: UserDeleteByIdRequestIdParamDto,

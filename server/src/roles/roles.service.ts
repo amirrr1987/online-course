@@ -36,10 +36,14 @@ export class RolesService implements IRolesService {
         'Role with the provided value already exists.',
       );
     }
-    const role = this.roleRepository.create(dto);
+    const updatedData = {
+      ...dto,
+      updated_at: new Date(),
+    };
+    const role = this.roleRepository.create(updatedData);
     await this.roleRepository.save(role);
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };
@@ -48,7 +52,7 @@ export class RolesService implements IRolesService {
   async findAll(): Promise<RoleFindAllResponseDto> {
     const roles = await this.roleRepository.find();
     return {
-      succuss: true,
+      success: true,
       status: 200,
       message: 'Roles retrieved successfully',
       data: roles,
@@ -63,7 +67,7 @@ export class RolesService implements IRolesService {
       throw new NotFoundException('Role not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
       data: role,
@@ -95,7 +99,7 @@ export class RolesService implements IRolesService {
 
     await this.roleRepository.update(id, updatedData);
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };
@@ -109,7 +113,7 @@ export class RolesService implements IRolesService {
       throw new NotFoundException('Role with this ID not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };

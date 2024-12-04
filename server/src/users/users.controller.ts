@@ -22,10 +22,14 @@ import {
   UserDeleteByIdRequestIdParamDto,
   UserDeleteByIdResponseDto,
 } from './dto';
+import { ResponseService } from 'src/response/response.service';
 
 @Controller('users')
 export class UsersController implements IUsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly responseService: ResponseService,
+  ) {}
 
   @Post()
   create(@Body() dto: UserCreateRequestDto): Promise<UserCreateResponseDto> {

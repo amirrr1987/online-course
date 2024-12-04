@@ -6,10 +6,9 @@ import {
   Column,
   ManyToMany,
   JoinTable,
-  OneToOne,
   JoinColumn,
   Check,
-  RelationId,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -41,15 +40,9 @@ export class User extends CoreEntity {
   })
   courses: CourseEntity[];
 
-  @OneToOne(() => RoleEntity, (role) => role.id)
+  @ManyToOne(() => RoleEntity, (role) => role.id)
   @JoinColumn({
     name: 'role_id',
   })
   role: RoleEntity;
-
-  @RelationId((user: User) => user.courses)
-  courses_id: number[];
-
-  @RelationId((user: User) => user.role)
-  role_id: number;
 }

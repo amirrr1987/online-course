@@ -1,29 +1,27 @@
 import {
-  DtoCategoryCreateOneRequestBody,
-  DtoCategoryCreateOneResponseBody,
-  DtoCategoryFindAllResponseBody,
-  DtoCategoryFindByIdRequestParam,
-  DtoCategoryFindByIdResponseBody,
-  DtoCategoryUpdateByIdRequestParam,
-  DtoCategoryUpdateByIdRequestBody,
-  DtoCategoryUpdateByIdResponseBody,
-  DtoCategoryDeleteByIdRequestParam,
-  DtoCategoryDeleteByIdResponseBody,
+  CategoryCreateRequestDto,
+  CategoryCreateResponseDto,
+  CategoryFindAllResponseDto,
+  CategoryFindByIdRequestIdParamDto,
+  CategoryFindByIdResponseDto,
+  CategoryUpdateByIdRequestIdParamDto,
+  CategoryUpdateByIdRequestDto,
+  CategoryUpdateByIdResponseDto,
+  CategoryDeleteByIdRequestIdParamDto,
+  CategoryDeleteByIdResponseDto,
 } from '../dto';
 
 export interface ICategoriesService {
-  create(
-    dto: DtoCategoryCreateOneRequestBody,
-  ): Promise<DtoCategoryCreateOneResponseBody>;
-  findAll(): Promise<DtoCategoryFindAllResponseBody>;
+  create(dto: CategoryCreateRequestDto): Promise<CategoryCreateResponseDto>;
+  findAll(): Promise<CategoryFindAllResponseDto>;
   findById(
-    id: DtoCategoryFindByIdRequestParam,
-  ): Promise<DtoCategoryFindByIdResponseBody>;
+    id: CategoryFindByIdRequestIdParamDto,
+  ): Promise<CategoryFindByIdResponseDto>;
   updateById(
-    id: DtoCategoryUpdateByIdRequestParam,
-    dto: DtoCategoryUpdateByIdRequestBody,
-  ): Promise<DtoCategoryUpdateByIdResponseBody>;
+    id: CategoryUpdateByIdRequestIdParamDto,
+    dto: CategoryUpdateByIdRequestDto,
+  ): Promise<CategoryUpdateByIdResponseDto>;
   deleteById(
-    id: DtoCategoryDeleteByIdRequestParam,
-  ): Promise<DtoCategoryDeleteByIdResponseBody>;
+    id: CategoryDeleteByIdRequestIdParamDto,
+  ): Promise<CategoryDeleteByIdResponseDto>;
 }

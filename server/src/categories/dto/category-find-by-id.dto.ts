@@ -1,10 +1,7 @@
-import { Category } from '../entities/category.entity';
-import { DtoCategoryBase } from './category-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { CategoryBaseDto } from './category-base.dto';
 
-export type DtoCategoryFindByIdRequestParam = DtoCategoryBase['id'];
-export class DtoCategoryFindByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-  data: Category;
+export type CategoryFindByIdRequestIdParamDto = CategoryBaseDto['id'];
+export class CategoryFindByIdResponseDto extends ResponseData {
+  data?: CategoryBaseDto;
 }

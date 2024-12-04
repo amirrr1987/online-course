@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
 
-export class DtoCategoryBase {
+export class CategoryBaseDto {
   @IsNumber()
   id: number;
 

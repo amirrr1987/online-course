@@ -40,7 +40,7 @@ export class CoursesService implements ICoursesService {
   async findAll(): Promise<CourseFindAllResponseDto> {
     const courses = await this.courseRepository.find();
     return {
-      succuss: true,
+      success: true,
       status: 200,
       message: 'Courses retrieved successfully',
       data: courses,
@@ -54,7 +54,7 @@ export class CoursesService implements ICoursesService {
       throw new NotFoundException('Course not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
       data: course,
@@ -84,7 +84,7 @@ export class CoursesService implements ICoursesService {
 
     await this.courseRepository.update(dto.id, updatedData);
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };
@@ -97,7 +97,7 @@ export class CoursesService implements ICoursesService {
       throw new NotFoundException('Course with this ID not found.');
     }
     return {
-      succuss: true,
+      success: true,
       message: '',
       status: 201,
     };

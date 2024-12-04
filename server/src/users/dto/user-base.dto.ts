@@ -2,8 +2,8 @@ import {
   IsArray,
   IsDate,
   IsNumber,
+  IsOptional,
   IsString,
-  MinLength,
 } from 'class-validator';
 import { CourseBaseDto } from 'src/courses/dto/course-base.dto';
 
@@ -12,8 +12,10 @@ export class UserBaseDto {
   id: number;
 
   @IsString()
-  @MinLength(2)
-  label: string;
+  first_name: string;
+
+  @IsString()
+  last_name: string;
 
   @IsString()
   mobile: string;
@@ -22,6 +24,7 @@ export class UserBaseDto {
   age: number;
 
   @IsArray()
+  @IsOptional()
   courses: CourseBaseDto[];
 
   @IsNumber()

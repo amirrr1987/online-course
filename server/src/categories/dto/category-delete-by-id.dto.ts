@@ -1,8 +1,5 @@
-import { DtoCategoryBase } from './category-base.dto';
+import { ResponseData } from 'src/response/response.service.interface';
+import { CategoryBaseDto } from './category-base.dto';
 
-export type DtoCategoryDeleteByIdRequestParam = DtoCategoryBase['id'];
-export class DtoCategoryDeleteByIdResponseBody {
-  succuss: boolean;
-  status: number;
-  message: string;
-}
+export type CategoryDeleteByIdRequestIdParamDto = CategoryBaseDto['id'];
+export class CategoryDeleteByIdResponseDto extends ResponseData {}

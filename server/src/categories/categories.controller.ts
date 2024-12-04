@@ -2,25 +2,25 @@ import {
   Controller,
   Get,
   Post,
-  Body,
   Patch,
   Param,
   Delete,
   ParseIntPipe,
+  Body,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { ICategoriesController } from './interfaces/categories.controller.interface';
 import {
-  DtoCategoryCreateOneRequestBody,
-  DtoCategoryCreateOneResponseBody,
-  DtoCategoryFindAllResponseBody,
-  DtoCategoryFindByIdRequestParam,
-  DtoCategoryFindByIdResponseBody,
-  DtoCategoryUpdateByIdRequestParam,
-  DtoCategoryUpdateByIdRequestBody,
-  DtoCategoryUpdateByIdResponseBody,
-  DtoCategoryDeleteByIdRequestParam,
-  DtoCategoryDeleteByIdResponseBody,
+  CategoryCreateRequestDto,
+  CategoryCreateResponseDto,
+  CategoryFindAllResponseDto,
+  CategoryFindByIdRequestIdParamDto,
+  CategoryFindByIdResponseDto,
+  CategoryUpdateByIdRequestIdParamDto,
+  CategoryUpdateByIdRequestDto,
+  CategoryUpdateByIdResponseDto,
+  CategoryDeleteByIdRequestIdParamDto,
+  CategoryDeleteByIdResponseDto,
 } from './dto';
 
 @Controller('categories')
@@ -29,35 +29,35 @@ export class CategoriesController implements ICategoriesController {
 
   @Post()
   create(
-    @Body() dto: DtoCategoryCreateOneRequestBody,
-  ): Promise<DtoCategoryCreateOneResponseBody> {
+    @Body() dto: CategoryCreateRequestDto,
+  ): Promise<CategoryCreateResponseDto> {
     return this.categoriesService.create(dto);
   }
 
   @Get()
-  findAll(): Promise<DtoCategoryFindAllResponseBody> {
+  findAll(): Promise<CategoryFindAllResponseDto> {
     return this.categoriesService.findAll();
   }
 
   @Get(':id')
   findById(
-    @Param('id', new ParseIntPipe()) id: DtoCategoryFindByIdRequestParam,
-  ): Promise<DtoCategoryFindByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: CategoryFindByIdRequestIdParamDto,
+  ): Promise<CategoryFindByIdResponseDto> {
     return this.categoriesService.findById(id);
   }
 
   @Patch(':id')
   updateById(
-    @Param('id', new ParseIntPipe()) id: DtoCategoryUpdateByIdRequestParam,
-    @Body() dto: DtoCategoryUpdateByIdRequestBody,
-  ): Promise<DtoCategoryUpdateByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: CategoryUpdateByIdRequestIdParamDto,
+    @Body() dto: CategoryUpdateByIdRequestDto,
+  ): Promise<CategoryUpdateByIdResponseDto> {
     return this.categoriesService.updateById(id, dto);
   }
 
   @Delete(':id')
   deleteById(
-    @Param('id', new ParseIntPipe()) id: DtoCategoryDeleteByIdRequestParam,
-  ): Promise<DtoCategoryDeleteByIdResponseBody> {
+    @Param('id', new ParseIntPipe()) id: CategoryDeleteByIdRequestIdParamDto,
+  ): Promise<CategoryDeleteByIdResponseDto> {
     return this.categoriesService.deleteById(id);
   }
 }

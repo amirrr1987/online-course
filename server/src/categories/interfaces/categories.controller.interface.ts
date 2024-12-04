@@ -1,29 +1,56 @@
 import {
-  DtoCategoryCreateOneRequestBody,
-  DtoCategoryCreateOneResponseBody,
-  DtoCategoryFindAllResponseBody,
-  DtoCategoryFindByIdRequestParam,
-  DtoCategoryFindByIdResponseBody,
-  DtoCategoryUpdateByIdRequestParam,
-  DtoCategoryUpdateByIdRequestBody,
-  DtoCategoryUpdateByIdResponseBody,
-  DtoCategoryDeleteByIdRequestParam,
-  DtoCategoryDeleteByIdResponseBody,
+  CategoryCreateRequestDto,
+  CategoryCreateResponseDto,
+  CategoryFindAllResponseDto,
+  CategoryFindByIdRequestIdParamDto,
+  CategoryFindByIdResponseDto,
+  CategoryUpdateByIdRequestIdParamDto,
+  CategoryUpdateByIdRequestDto,
+  CategoryUpdateByIdResponseDto,
+  CategoryDeleteByIdRequestIdParamDto,
+  CategoryDeleteByIdResponseDto,
 } from '../dto';
 
 export interface ICategoriesController {
-  create(
-    dto: DtoCategoryCreateOneRequestBody,
-  ): Promise<DtoCategoryCreateOneResponseBody>;
-  findAll(): Promise<DtoCategoryFindAllResponseBody>;
+  /**
+   * Creates a new category.
+   * @param dto - Data Transfer Object for creating a category
+   * @returns The created category response DTO
+   */
+  create(dto: CategoryCreateRequestDto): Promise<CategoryCreateResponseDto>;
+
+  /**
+   * Retrieves all categories.
+   * @returns List of all categories
+   */
+  findAll(): Promise<CategoryFindAllResponseDto>;
+
+  /**
+   * Finds a category by its ID.
+   * @param id - The ID of the category
+   * @returns The category found
+   */
   findById(
-    id: DtoCategoryFindByIdRequestParam,
-  ): Promise<DtoCategoryFindByIdResponseBody>;
+    id: CategoryFindByIdRequestIdParamDto,
+  ): Promise<CategoryFindByIdResponseDto>;
+
+  /**
+   * Updates a category by its ID.
+   * @param id - The ID of the category
+   * @param dto - DTO containing updated data
+   * @returns The updated category
+   */
   updateById(
-    id: DtoCategoryUpdateByIdRequestParam,
-    dto: DtoCategoryUpdateByIdRequestBody,
-  ): Promise<DtoCategoryUpdateByIdResponseBody>;
+    id: CategoryUpdateByIdRequestIdParamDto,
+    dto: CategoryUpdateByIdRequestDto,
+  ): Promise<CategoryUpdateByIdResponseDto>;
+
+  /**
+   * Deletes a category by its ID.
+   * @param id - The ID of the category
+   * @returns The result of the deletion
+   */
   deleteById(
-    id: DtoCategoryDeleteByIdRequestParam,
-  ): Promise<DtoCategoryDeleteByIdResponseBody>;
+    id: CategoryDeleteByIdRequestIdParamDto,
+  ): Promise<CategoryDeleteByIdResponseDto>;
 }
