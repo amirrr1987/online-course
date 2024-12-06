@@ -1,6 +1,6 @@
 import { ResponseData } from '../../response/response.service.interface';
-import { CourseBaseDto } from './course-base.dto';
+import { Course as CourseEntity } from '../entities/course.entity';
 
 export class CourseFindAllResponseDto extends ResponseData {
-  data: CourseBaseDto[];
+  data: CourseEntity[];
 }

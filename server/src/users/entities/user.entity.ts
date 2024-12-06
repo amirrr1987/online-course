@@ -45,4 +45,7 @@ export class User extends CoreEntity {
     name: 'role_id',
   })
   role: RoleEntity;
+
+  @Column({ name: 'role_id', nullable: true })
+  role_id: number;
 }

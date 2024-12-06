@@ -27,7 +27,7 @@ export class CoursesService implements ICoursesService {
     private readonly courseRepository: Repository<CourseEntity>,
     private readonly responseService: ResponseService,
   ) {}
-  async create(dto: CourseCreateRequestDto): Promise<CourseCreateResponseDto> {
+  async create(dto: CourseCreateRequestDto): Promise<any> {
     const existingCourse = await this.courseRepository.findOneBy({
       value: dto.value,
     });
@@ -38,12 +38,21 @@ export class CoursesService implements ICoursesService {
     }
     const updatedData: DeepPartial<CourseEntity> = {
       ...dto,
-      // categories: { id: dto.category_id },
+      categories: [{ id: dto.category_id }],
       updated_at: new Date(),
     };
-    const course = this.courseRepository.create(updatedData);
-    await this.courseRepository.save(course);
-    return this.responseService.createOne('user', course.id);
+    return { ...updatedData };
+
+    // const course = this.courseRepository.create(updatedData);
+
+    // await this.courseRepository.save(course);
+
+    // await this.courseRepository
+    //   .createQueryBuilder()
+    //   .relation(CourseEntity, 'categories')
+    //   .of(course)
+    //   .add(dto.category_id);
+    // return this.responseService.createOne('user', course.id);
   }
   async findAll(): Promise<CourseFindAllResponseDto> {
     const courses = await this.courseRepository.find();

@@ -39,7 +39,11 @@ export class CategoriesService implements ICategoriesService {
         'Course with the provided value already exists.',
       );
     }
-    const category = this.categoryRepository.create(dto);
+    const updatedData = {
+      ...dto,
+      updated_at: new Date(),
+    };
+    const category = this.categoryRepository.create(updatedData);
     await this.categoryRepository.save(category);
     return this.responseService.createOne('user', category.id);
   }
