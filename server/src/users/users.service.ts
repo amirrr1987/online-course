@@ -60,10 +60,7 @@ export class UsersService implements IUsersService {
   async findById(
     id: UserFindByIdRequestIdParamDto,
   ): Promise<UserFindByIdResponseDto> {
-    const user = await this.usersRepository.findOne({
-      where: { id: id },
-      select: ['id', 'first_name', 'last_name', 'mobile', 'age', 'role_id'], // انتخاب ستون‌های مورد نظر
-    });
+    const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
       throw new NotFoundException('User not found.');
     }
