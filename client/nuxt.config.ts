@@ -2,28 +2,20 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  site: {
-    url: "https://online-course-amirmaghami.netlify.app/",
-    name: "online course",
-  },
+
+  css: [
+    "bootstrap/dist/css/bootstrap.rtl.min.css",
+    "bootstrap-icons/font/bootstrap-icons.css",
+  ],
+
   app: {
     head: {
-      htmlAttrs: { dir: "rtl", lang: "fa" },
-      link: [
-        {
-          rel: "icon",
-          type: "image/co",
-          href: "/fav-light.icon",
-        },
-      ],
+      htmlAttrs: {
+        dir: "rtl",
+        lang: "fa",
+      },
     },
   },
 
-  modules: [
-    "@nuxt/fonts",
-    "@nuxt/ui",
-    "@nuxt/image",
-    "@nuxt/content",
-    "@nuxtjs/sitemap",
-  ],
+  modules: ["@nuxt/fonts"],
 });

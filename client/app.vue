@@ -1,9 +1,13 @@
+<script setup lang="ts"></script>
+
 <template>
   <NuxtRouteAnnouncer />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
-<script setup lang="ts">
-
-</script>
+<style>
+body {
+  font-family: 'Vazirmatn', "Poppins", serif;
+}
+</style>
