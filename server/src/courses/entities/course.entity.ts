@@ -11,6 +11,12 @@ export class Course extends CoreEntity {
   @Column({ unique: true, type: 'varchar', length: 255 })
   value: string;
 
+  @Column({ nullable: false, unique: true })
+  slug: string;
+
+  @Column({ type: 'number', default: 0 })
+  duration: number;
+
   @ManyToMany(() => UserEntity, (user) => user.id)
   users: UserEntity[];
 
