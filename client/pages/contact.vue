@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="دوره استخراج معدن">
+                        <img src="https://static.roocket.ir/images/cover/2023/12/1/6zjY592eGaFixyICJNPwMs5bzWdj13gWIJ96XfzK.jpg" class="card-img-top" alt="دوره استخراج معدن">
                         <div class="card-body">
                             <h5 class="card-title">دوره استخراج معدن</h5>
                             <p class="card-text">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="دوره فرآوری مواد معدنی">
+                        <img src="https://static.roocket.ir/images/cover/2023/12/1/lDnMIZJSmv3s5N9UNNixtE4HUYsqXTY3Wvti9ywq.jpg" class="card-img-top" alt="دوره فرآوری مواد معدنی">
                         <div class="card-body">
                             <h5 class="card-title">دوره فرآوری مواد معدنی</h5>
                             <p class="card-text">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="دوره ایمنی در معدن">
+                        <img src="https://static.roocket.ir/images/cover/2023/12/2/SNlJiQtayKYfEKAr0kMnDTYcAag5G6YHDanLHFZq.jpg" class="card-img-top" alt="دوره ایمنی در معدن">
                         <div class="card-body">
                             <h5 class="card-title">دوره ایمنی در معدن</h5>
                             <p class="card-text">
@@ -91,7 +91,7 @@
                         width="100%"
                         height="450"
                         style="border:0;"
-                        allowfullscreen=""
+                        allowfullscreen="true"
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
