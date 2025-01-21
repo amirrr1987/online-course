@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm position-sticky">
     <div class="container">
       <NuxtLink
         class="navbar-brand"
@@ -7,7 +7,7 @@
         aria-current="page"
         to="/"
       >
-        Video
+        آموزش کده
       </NuxtLink>
       <button
         class="navbar-toggler"
@@ -29,7 +29,27 @@
               aria-current="page"
               to="/"
             >
-              Home
+              صفحه اصلی
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink
+              class="nav-link"
+              active-class="active"
+              aria-current="page"
+              to="/about"
+            >
+              درباره ما
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink
+              class="nav-link"
+              active-class="active"
+              aria-current="page"
+              to="/courses"
+            >
+              دوره‌ها
             </NuxtLink>
           </li>
           <li class="nav-item">
@@ -39,7 +59,7 @@
               aria-current="page"
               to="/contact"
             >
-              Contact
+              تماس با ما
             </NuxtLink>
           </li>
         </ul>
@@ -47,16 +67,20 @@
           <input
             class="form-control me-2"
             type="search"
-            placeholder="Search"
+            placeholder="جستجو"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-success" type="submit">جستجو</button>
         </form>
-        <NuxtLink to="/auth/login">Login</NuxtLink>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <NuxtLink to="/auth/login" class="nav-link">ورود / ثبت</NuxtLink>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-  <nav aria-label="breadcrumb">
+  <!-- <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
       <li class="breadcrumb-item">
         <a class="link-body-emphasis" href="#">
@@ -71,5 +95,5 @@
         Data
       </li>
     </ol>
-  </nav>
+  </nav> -->
 </template>

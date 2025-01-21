@@ -2,7 +2,7 @@
 definePageMeta({
   layout: "auth",
 });
-const auth = ref({ username: "", password: "" });
+const auth = ref({ mobile: "", password: "" });
 const submitHandler = async () => {
   try {
   } catch (error) {}
@@ -11,20 +11,20 @@ const submitHandler = async () => {
 <template>
   <form @submit.prevent="submitHandler">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <label for="exampleInputMobile1" class="form-label">شماره تماس</label>
       <input
         type="email"
         class="form-control"
         id="exampleInputEmail1"
-        aria-describedby="emailHelp"
-        v-model="auth.username"
+        aria-describedby="mobileHelp"
+        v-model="auth.mobile"
       />
-      <div id="emailHelp" class="form-text">
-        We'll never share your email with anyone else.
-      </div>
+      <!-- <div id="mobileHelp" class="form-text">
+        We'll never share your mobile with anyone else.
+      </div> -->
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <label for="exampleInputPassword1" class="form-label">گذر واژه</label>
       <input
         type="password"
         class="form-control"
@@ -33,8 +33,8 @@ const submitHandler = async () => {
       />
     </div>
     <div class="d-flex gap-4">
-      <button type="submit" class="btn btn-primary">Register</button>
-      <NuxtLink to="/auth/login" class="btn">Login</NuxtLink>
+      <button type="submit" class="btn btn-primary">ثبت نام</button>
+      <NuxtLink to="/auth/login" class="btn">ورود</NuxtLink>
     </div>
   </form>
 </template>
