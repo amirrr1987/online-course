@@ -91,7 +91,7 @@
                         width="100%"
                         height="450"
                         style="border:0;"
-                        allowfullscreen="true"
+                        allowfullscreen
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
@@ -108,13 +108,14 @@
                     <h3>تخصص‌ها</h3>
                     <p>
                         احمد قربانزاده در زمینه‌های زیر تخصص دارد:
-                        <ul>
-                            <li>استخراج سنگ معدن</li>
-                            <li>فرآوری مواد معدنی</li>
-                            <li>مدیریت پروژه‌های معدنی</li>
-                            <li>ایمنی و بهداشت در معادن</li>
-                        </ul>
+
                     </p>
+                  <ul>
+                    <li>استخراج سنگ معدن</li>
+                    <li>فرآوری مواد معدنی</li>
+                    <li>مدیریت پروژه‌های معدنی</li>
+                    <li>ایمنی و بهداشت در معادن</li>
+                  </ul>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <h3>درباره ما</h3>
@@ -132,3 +133,5 @@
         </div>
     </section>
 </template>
+<script setup lang="ts">
+</script>

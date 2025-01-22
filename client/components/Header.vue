@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-6">
           <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-            درباره احمد قربانزاده
+            احمد قربان‌زاده
           </h1>
           <p class="lead">
             احمد قربانزاده یک مدرس و مشاور با تجربه در زمینه‌های مختلف آموزشی

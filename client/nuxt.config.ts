@@ -4,8 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   css: [
-    "bootstrap/dist/css/bootstrap.rtl.min.css",
-    "bootstrap-icons/font/bootstrap-icons.css",
+    "assets/styles/style.scss",
   ],
 
   app: {
